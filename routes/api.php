@@ -20,4 +20,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/', [AuthController::class, 'updateUser']);
     Route::delete('/', [AuthController::class, 'deleteUser']);
   });
+
+  // Category
+  Route::group(['prefix' => 'category'], function () {
+    Route::post('/', [App\Http\Controllers\CategoryController::class, 'createCategory']);
+    Route::get('/', [App\Http\Controllers\CategoryController::class, 'getCategory']);
+    Route::get('/{id}', [App\Http\Controllers\CategoryController::class, 'getCategoryById']);
+    Route::put('/{id}', [App\Http\Controllers\CategoryController::class, 'updateCategory']);
+    Route::delete('/{id}', [App\Http\Controllers\CategoryController::class, 'deleteCategory']);
+  });
 });

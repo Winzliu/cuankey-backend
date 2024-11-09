@@ -1,932 +1,936 @@
 {
-	"openapi": "3.0.3",
-	"info": {
-		"title": "Mobile API",
-		"description": "Membuat API untuk tugas besar Mobile Development",
-		"version": "1.0.0",
-		"contact": {
-			"name": "Kelompok 7"
-		}
-	},
-	"servers": [
-		{
-			"description": "Tugas Besar Mobile Development",
-			"url": "https://localhost/api/"
-		}
-	],
-	"paths": {
-		"/category": {
-			"get": {
-				"tags": ["Category"],
-				"summary": "Get All Category",
-				"security": [
-					{
-						"UserAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"name": "Authorization",
-						"in": "header",
-						"description": "Bearer token",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success Get All Category",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"data": {
-											"type": "object",
-											"properties": {
-												"status": {
-													"type": "string"
-												},
-												"code": {
-													"type": "integer"
-												},
-												"message": {
-													"type": "string"
-												},
-												"data": {
-													"type": "array",
-													"items": {
-														"type": "object",
-														"properties": {
-															"id": {
-																"type": "string"
-															},
-															"name": {
-																"type": "string"
-															},
-															"description": {
-																"type": "string"
-															},
-															"budget": {
-																"type": "number"
-															},
-															"type": {
-																"type": "string"
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								},
-								"examples": {
-									"Success": {
-										"description": "Success Get All Category",
-										"value": {
-											"data": {
-												"status": "success",
-												"code": 200,
-												"message": "Get All Category Successfully",
-												"data": [
-													{
-														"id": "1",
-														"name": "Makanan",
-														"description": "Pengeluaran untuk makanan",
-														"budget": 100000,
-														"type": "Pengeluaran"
-													},
-													{
-														"id": "2",
-														"name": "Gaji",
-														"description": "Pemasukan dari gaji",
-														"budget": null,
-														"type": "Pemasukan"
-													}
-												]
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"data": {
-											"type": "object",
-											"properties": {
-												"status": {
-													"type": "string"
-												},
-												"code": {
-													"type": "integer"
-												},
-												"message": {
-													"type": "string"
-												},
-												"errors": {
-													"type": "object"
-												}
-											}
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Unauthorized",
-										"value": {
-											"status": "unauthorized",
-											"code": 401,
-											"message": "Unauthorized",
-											"errors": {
-												"message": "Unauthorized"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Internal Server Error",
-										"value": {
-											"status": "error",
-											"code": 500,
-											"message": "Internal Server Error",
-											"errors": {
-												"message": "Internal Server Error"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"post": {
-				"tags": ["Category"],
-				"summary": "Create Category",
-				"security": [
-					{
-						"UserAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"name": "Authorization",
-						"in": "header",
-						"description": "Bearer token",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"name": {
-										"type": "string"
-									},
-									"description": {
-										"type": "string"
-									},
-									"budget": {
-										"type": "number"
-									},
-									"type": {
-										"type": "string"
-									}
-								}
-							},
-							"examples": {
-								"Category": {
-									"description": "Example create Category",
-									"value": {
-										"name": "Makanan",
-										"description": "Pengeluaran untuk makanan",
-										"budget": 100000,
-										"type": "Pengeluaran"
-									}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Success create category",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"data": {
-											"type": "object",
-											"properties": {
-												"status": {
-													"type": "string"
-												},
-												"code": {
-													"type": "integer"
-												},
-												"message": {
-													"type": "string"
-												},
-												"data": {
-													"type": "object",
-													"properties": {
-														"id": {
-															"type": "string"
-														},
-														"name": {
-															"type": "string"
-														},
-														"description": {
-															"type": "string"
-														},
-														"budget": {
-															"type": "number"
-														},
-														"type": {
-															"type": "string"
-														}
-													}
-												}
-											}
-										}
-									}
-								},
-								"examples": {
-									"Success": {
-										"description": "Success create category",
-										"value": {
-											"status": "success",
-											"code": 200,
-											"message": "Create Category Successfully",
-											"data": {
-												"id": "3",
-												"name": "Makanan",
-												"description": "Pengeluaran untuk makanan",
-												"budget": 100000,
-												"type": "Pengeluaran"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"data": {
-											"type": "object",
-											"properties": {
-												"status": {
-													"type": "string"
-												},
-												"code": {
-													"type": "integer"
-												},
-												"message": {
-													"type": "string"
-												},
-												"errors": {
-													"type": "object"
-												}
-											}
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Unauthorized",
-										"value": {
-											"status": "unauthorized",
-											"code": 401,
-											"message": "Unauthorized",
-											"errors": {
-												"message": "Unauthorized"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Errors": {
-										"description": "Input data is not valid",
-										"value": {
-											"status": "bad request",
-											"code": 400,
-											"message": "Input data is not valid",
-											"errors": {
-												"name": "Name field is required",
-												"description": "Description field is required",
-												"budget": "Budget field is required",
-												"type": "Type field is required"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Internal Server Error",
-										"value": {
-											"status": "error",
-											"code": 500,
-											"message": "Internal Server Error",
-											"errors": {
-												"message": "Internal Server Error"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/Category/{id}": {
-			"get": {
-				"tags": ["Category"],
-				"summary": "Get Category by id",
-				"security": [
-					{
-						"UserAuth": []
-					}
-				],
-				"operationId": "getCategoryById",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "Category id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "Authorization",
-						"in": "header",
-						"description": "Bearer token",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success get category",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"data": {
-											"type": "object",
-											"properties": {
-												"id": {
-													"type": "string"
-												},
-												"name": {
-													"type": "string"
-												},
-												"description": {
-													"type": "string"
-												},
-												"budget": {
-													"type": "integer"
-												},
-												"type": {
-													"type": "string"
-												}
-											}
-										}
-									}
-								},
-								"examples": {
-									"Success": {
-										"description": "Success get category",
-										"value": {
-											"status": "success",
-											"code": 200,
-											"message": "Success get category",
-											"data": {
-												"id": "1",
-												"name": "Makanan",
-												"description": "Makanan",
-												"budget": 100000,
-												"type": "Pengeluaran"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Not Found",
-										"value": {
-											"status": "not found",
-											"code": 404,
-											"message": "Category not found",
-											"errors": {
-												"message": "Category not found"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Internal Server Error",
-										"value": {
-											"status": "error",
-											"code": 500,
-											"message": "Internal Server Error",
-											"errors": {
-												"message": "Internal Server Error"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"put": {
-				"tags": ["Category"],
-				"summary": "Update Category",
-				"security": [
-					{
-						"UserAuth": []
-					}
-				],
-				"operationId": "updateCategory",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "Category id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "Authorization",
-						"in": "header",
-						"description": "Bearer token",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-									"name": {
-										"type": "string"
-									},
-									"description": {
-										"type": "string"
-									},
-									"budget": {
-										"type": "integer"
-									},
-									"type": {
-										"type": "string"
-									}
-								}
-							},
-							"examples": {
-								"Example": {
-									"description": "Example update category",
-									"value": {
-										"name": "Makanan",
-										"description": "Makanan",
-										"budget": 100000,
-										"type": "Pengeluaran"
-									}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Success update category",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"data": {
-											"type": "object",
-											"properties": {
-												"id": {
-													"type": "string"
-												},
-												"name": {
-													"type": "string"
-												},
-												"description": {
-													"type": "string"
-												},
-												"budget": {
-													"type": "integer"
-												},
-												"type": {
-													"type": "string"
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Not Found",
-										"value": {
-											"status": "not found",
-											"code": 404,
-											"message": "Category not found",
-											"errors": {
-												"message": "Category not found"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Internal Server Error",
-										"value": {
-											"status": "error",
-											"code": 500,
-											"message": "Internal Server Error",
-											"errors": {
-												"message": "Internal Server Error"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"security": [
-					{
-						"UserAuth": []
-					}
-				],
-				"tags": ["Category"],
-				"summary": "Delete Category",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "Category id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"name": "Authorization",
-						"in": "header",
-						"description": "Bearer token",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success Delete Category",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										}
-									}
-								},
-								"examples": {
-									"Success": {
-										"description": "Success Delete Category",
-										"value": {
-											"status": "success",
-											"code": 200,
-											"message": "Success Delete Category"
-										}
-									}
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Not Found",
-										"value": {
-											"status": "not found",
-											"code": 404,
-											"message": "Category not found",
-											"errors": {
-												"message": "Category not found"
-											}
-										}
-									}
-								}
-							}
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"status": {
-											"type": "string"
-										},
-										"code": {
-											"type": "integer"
-										},
-										"message": {
-											"type": "string"
-										},
-										"errors": {
-											"type": "object"
-										}
-									}
-								},
-								"examples": {
-									"Error": {
-										"description": "Internal Server Error",
-										"value": {
-											"status": "error",
-											"code": 500,
-											"message": "Internal Server Error",
-											"errors": {
-												"message": "Internal Server Error"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	},
-	"components": {
-		"securitySchemes": {
-			"UserAuth": {
-				"description": "Authentication for API",
-				"type": "apiKey",
-				"in": "header",
-				"name": "Authorization"
-			}
-		}
-	}
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Mobile API",
+        "description": "Membuat API untuk tugas besar Mobile Development",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Kelompok 7"
+        }
+    },
+    "servers": [
+        {
+            "description": "Tugas Besar Mobile Development",
+            "url": "http://localhost:8000/api/"
+        }
+    ],
+    "paths": {
+        "/category": {
+            "get": {
+                "tags": ["Category"],
+                "summary": "Get All Category",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get All Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "description": {
+                                                                "type": "string"
+                                                            },
+                                                            "budget": {
+                                                                "type": "number"
+                                                            },
+                                                            "type": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Get All Category",
+                                        "value": {
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Get All Category Successfully",
+                                                "data": [
+                                                    {
+                                                        "id": "1",
+                                                        "name": "Makanan",
+                                                        "description": "Pengeluaran untuk makanan",
+                                                        "budget": 100000,
+                                                        "type": "Pengeluaran"
+                                                    },
+                                                    {
+                                                        "id": "2",
+                                                        "name": "Gaji",
+                                                        "description": "Pemasukan dari gaji",
+                                                        "budget": null,
+                                                        "type": "Pemasukan"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Category"],
+                "summary": "Create Category",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "budget": {
+                                        "type": "number"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Category": {
+                                    "description": "Example create Category",
+                                    "value": {
+                                        "name": "Makanan",
+                                        "description": "Pengeluaran untuk makanan",
+                                        "budget": 100000,
+                                        "type": "Pengeluaran"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "budget": {
+                                                            "type": "number"
+                                                        },
+                                                        "type": {
+                                                            "type": "string"
+                                                        },
+                                                        "user_id": {
+                                                            "type": "number"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success create category",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Create Category Successfully",
+                                            "data": {
+                                                "id": "3",
+                                                "name": "Makanan",
+                                                "description": "Pengeluaran untuk makanan",
+                                                "budget": 100000,
+                                                "type": "Pengeluaran",
+                                                "user_id": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Errors": {
+                                        "description": "Input data is not valid",
+                                        "value": {
+                                            "status": "bad request",
+                                            "code": 400,
+                                            "message": "Input data is not valid",
+                                            "errors": {
+                                                "name": "Name field is required",
+                                                "description": "Description field is required",
+                                                "budget": "Budget field is required",
+                                                "type": "Type field is required"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Category/{id}": {
+            "get": {
+                "tags": ["Category"],
+                "summary": "Get Category by id",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "operationId": "getCategoryById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "budget": {
+                                                    "type": "integer"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success get category",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Success get category",
+                                            "data": {
+                                                "id": "1",
+                                                "name": "Makanan",
+                                                "description": "Makanan",
+                                                "budget": 100000,
+                                                "type": "Pengeluaran"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Not Found",
+                                        "value": {
+                                            "status": "not found",
+                                            "code": 404,
+                                            "message": "Category not found",
+                                            "errors": {
+                                                "message": "Category not found"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Category"],
+                "summary": "Update Category",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "operationId": "updateCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "budget": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Example": {
+                                    "description": "Example update category",
+                                    "value": {
+                                        "name": "Makanan",
+                                        "description": "Makanan",
+                                        "budget": 100000,
+                                        "type": "Pengeluaran"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "budget": {
+                                                    "type": "integer"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Not Found",
+                                        "value": {
+                                            "status": "not found",
+                                            "code": 404,
+                                            "message": "Category not found",
+                                            "errors": {
+                                                "message": "Category not found"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "tags": ["Category"],
+                "summary": "Delete Category",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Delete Category",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Success Delete Category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Not Found",
+                                        "value": {
+                                            "status": "not found",
+                                            "code": 404,
+                                            "message": "Category not found",
+                                            "errors": {
+                                                "message": "Category not found"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "UserAuth": {
+                "description": "Authentication for API",
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization"
+            }
+        }
+    }
 }

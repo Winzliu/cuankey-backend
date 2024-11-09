@@ -17,10 +17,13 @@ class AuthController extends Controller
         $user_registed = User::create($data);
         $token = $user_registed->createToken($data['email']);
         $user_registed->token = $token->plainTextToken;
-        $user_registed->message = "Register success";
 
-        return (new UserResource($user_registed))->response()
-            ->setStatusCode(200);
+        return response()->json([
+            'status'  => 'success',
+            'code'    => 200,
+            'message' => 'Register success',
+            'data'    => new UserResource($user_registed)
+        ], 200);
     }
 
     public function login(UserLoginRequest $request)
@@ -32,10 +35,12 @@ class AuthController extends Controller
             $token = $user->createToken($data['email']);
             $user->token = $token->plainTextToken;
 
-            $user->message = "Login success";
-
-            return (new UserResource($user))->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'status'  => 'success',
+                'code'    => 200,
+                'message' => 'Login success',
+                'data'    => new UserResource($user)
+            ], 200);
         }
 
         return response()->json([
@@ -63,8 +68,13 @@ class AuthController extends Controller
     public function getUser(Request $request)
     {
         $request->user()->message = "Get user success";
-        return (new UserResource($request->user()))->response()
-            ->setStatusCode(200);
+
+        return response()->json([
+            'status'  => 'success',
+            'code'    => 200,
+            'message' => 'Get user success',
+            'data'    => new UserResource($request->user())
+        ], 200);
     }
 
     public function updateUser(Request $request)
