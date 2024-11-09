@@ -359,7 +359,7 @@
                 }
             }
         },
-        "/logout/": {
+        "/logout": {
             "post": {
                 "tags": ["User"],
                 "summary": "Logout",
