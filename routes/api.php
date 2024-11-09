@@ -12,10 +12,12 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
-Route::get('/user', [AuthController::class, 'getUser'])->middleware('auth:sanctum');
-
-Route::put('/user', [AuthController::class, 'updateUser'])->middleware('auth:sanctum');
-
-Route::delete('/user', [AuthController::class, 'deleteUser'])->middleware('auth:sanctum');
+Route::group(['middleware' => 'auth:sanctum'], function () {
+  // Authentication
+  Route::post('/logout', [AuthController::class, 'logout']);
+  Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [AuthController::class, 'getUser']);
+    Route::put('/', [AuthController::class, 'updateUser']);
+    Route::delete('/', [AuthController::class, 'deleteUser']);
+  });
+});
