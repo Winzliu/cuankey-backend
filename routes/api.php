@@ -29,4 +29,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/{id}', [App\Http\Controllers\CategoryController::class, 'updateCategory']);
     Route::delete('/{id}', [App\Http\Controllers\CategoryController::class, 'deleteCategory']);
   });
+
+  // Wallets
+  Route::group(['prefix' => 'wallet'], function () {
+    Route::post('/', [App\Http\Controllers\WalletController::class, 'createWallet']);
+    Route::get('/', [App\Http\Controllers\WalletController::class, 'getWallet']);
+    Route::get('/{id}', [App\Http\Controllers\WalletController::class, 'getWalletById']);
+    Route::put('/{id}', [App\Http\Controllers\WalletController::class, 'updateWallet']);
+    Route::put('/switch/{id}', [App\Http\Controllers\WalletController::class, 'switchWallet']);
+    Route::delete('/{id}', [App\Http\Controllers\WalletController::class, 'deleteWallet']);
+  });
 });

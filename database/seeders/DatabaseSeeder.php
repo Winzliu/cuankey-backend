@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\category;
 use App\Models\User;
+use App\Models\Wallet;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -44,6 +45,13 @@ class DatabaseSeeder extends Seeder
             'description' => 'Pengeluaran untuk transportasi',
             'budget'      => null,
             'type'        => 'Pengeluaran',
+            'user_id'     => 0
+        ]);
+
+        Wallet::factory()->create([
+            'name'        => 'Cash Wallet',
+            'balance'     => 50000,
+            'is_active'   => true,
             'user_id'     => 0
         ]);
     }

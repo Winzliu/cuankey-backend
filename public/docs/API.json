@@ -1790,15 +1790,610 @@
                     }
                 }
             }
+        },
+        "/wallet": {
+            "get": {
+                "tags": ["Wallet"],
+                "summary": "Get All Wallet",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get Wallet Details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "balance": {
+                                                            "type": "number"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "boolean"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Get Wallet Details",
+                                        "value": {
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Get Wallet Details Successfully",
+                                                "data": [
+                                                    {
+                                                        "id": 1,
+                                                        "user_id": 0,
+                                                        "name": "Cash Wallet",
+                                                        "balance": 50000,
+                                                        "is_active": 0
+                                                    },
+                                                    {
+                                                        "id": 2,
+                                                        "user_id": 0,
+                                                        "name": "Credit Card Wallet",
+                                                        "balance": 100000,
+                                                        "is_active": 1
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Wallet"],
+                "summary": "Create Wallet",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "balance": {
+                                        "type": "number"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Wallet": {
+                                    "description": "Example create Wallet",
+                                    "value": {
+                                        "id": 3,
+                                        "user_id": 1,
+                                        "name": "Bank Wallet",
+                                        "balance": 100000,
+                                        "is_active": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create wallet",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "balance": {
+                                                            "type": "number"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success create wallet",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Create Wallet Successfully",
+                                            "data": {
+                                                "id": "3",
+                                                "user_id": 1,
+                                                "name": "Credit Card Wallet",
+                                                "balance": 1000.00,
+                                                "is_active":true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Errors": {
+                                        "description": "Invalid input data",
+                                        "value": {
+                                            "status": "bad request",
+                                            "code": 400,
+                                            "message": "Invalid input data",
+                                            "errors": {
+                                                "user_id": "User ID is required",
+                                                "balance": "Balance is required",
+                                                "is_active": "Status is required",
+                                                "name": "Name is required"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/wallet/{id}": {
+            "get": {
+                "tags": ["Wallet"],
+                "summary": "Get Wallet by ID",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Wallet retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": { "type": "string" },
+                                        "name": { "type": "string" },
+                                        "balance": { "type": "number" },
+                                        "is_active": { "type": "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Wallet not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Wallet"],
+                "summary": "Update Wallet",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": { "type": "string" },
+                                    "balance": { "type": "number" },
+                                    "is_active": { "type": "boolean" }
+                                }
+                            },
+                            "examples": {
+                                "Wallet": {
+                                    "summary": "Example Wallet update",
+                                    "value": {
+                                        "user_id": 1,
+                                        "name": "New Wallet Name",
+                                        "balance": 500.00,
+                                        "is_active": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Wallet updated successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Wallet"],
+                "summary": "Delete Wallet",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Wallet deleted successfully"
+                    },
+                    "404": {
+                        "description": "Wallet not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/wallet/switch/{id}": {
+            "put": {
+                "tags": ["Wallet"],
+                "summary": "Switch Wallet Active Status",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Wallet status switched successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": { "type": "string" },
+                                        "name":{ "type": "string" },
+                                        "is_active": { "type": "boolean" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Wallet not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
         "securitySchemes": {
             "UserAuth": {
-                "description": "Authentication for API",
-                "type": "apiKey",
-                "in": "header",
-                "name": "Authorization"
+                "type": "http",
+                "scheme": "bearer",
+                "description": "Authentication for API with Bearer token"
             }
         }
     }
