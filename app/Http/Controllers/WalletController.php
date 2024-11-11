@@ -61,7 +61,7 @@ class WalletController extends Controller
         if ($walletExists) {
             return response()->json([
                 'status'  => 'bad request',
-                'code'    => 700,
+                'code'    => 400,
                 'message' => 'Input data is not valid',
                 'errors'  => [
                                 'name' => 'Wallet name already exists'

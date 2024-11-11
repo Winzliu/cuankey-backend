@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\category;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\Transaction;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -53,6 +54,29 @@ class DatabaseSeeder extends Seeder
             'balance'     => 50000,
             'is_active'   => true,
             'user_id'     => 0
+        ]);
+
+        Wallet::factory()->create([
+            'name'        => 'Credit Card Wallet',
+            'balance'     => 1000000,
+            'is_active'   => false,
+            'user_id'     => 0
+        ]);
+
+        Transaction::factory()->create([
+            'user_id'     => 0,
+            'wallet_id'   => 1,
+            'category_id' => 1,
+            'amount'      => 50000, 
+            'description' => 'Sample transaction for seeding',
+        ]);
+
+        Transaction::factory()->create([
+            'user_id'     => 0,
+            'wallet_id'   => 1,
+            'category_id' => 2,
+            'amount'      => 100000, 
+            'description' => 'Sample transaction for seeding 2',
         ]);
     }
 }
