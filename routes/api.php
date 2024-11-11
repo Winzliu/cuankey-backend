@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Wallet;
@@ -35,19 +37,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::group(['prefix' => 'wallet'], function () {
     Route::post('/', [App\Http\Controllers\WalletController::class, 'createWallet']);
     Route::get('/', [App\Http\Controllers\WalletController::class, 'getWallet']);
-    Route::get('/export-json', function() {
-      $data = Wallet::all();  
+    Route::get('/export-json', function () {
+      $data = Wallet::all();
       $jsonData = $data->toJson();
 
-      $filePath = storage_path('app/public/Wallet-api.json');  
+      $filePath = storage_path('app/public/Wallet-api.json');
 
       file_put_contents($filePath, $jsonData);
 
       return response()->json([
-          'message' => 'Data exported to JSON successfully',
-          'file_path' => $filePath,
+        'message'   => 'Data exported to JSON successfully',
+        'file_path' => $filePath,
       ]);
-    } );
+    });
     Route::get('/{id}', [App\Http\Controllers\WalletController::class, 'getWalletById']);
     Route::put('/{id}', [App\Http\Controllers\WalletController::class, 'updateWallet']);
     Route::put('/switch/{id}', [App\Http\Controllers\WalletController::class, 'switchWallet']);

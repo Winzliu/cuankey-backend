@@ -12,7 +12,7 @@ class TransactionController extends Controller
 {
     public function getTransaction(Request $request)
     {
-        $transactions = Transaction::whereIn('user_id', [$request->user()->id, 0])->get();
+        $transactions = Transaction::whereIn('user_id', [$request->user()->id])->get();
 
         return response()->json([
             'status'  => 'success',
@@ -21,7 +21,7 @@ class TransactionController extends Controller
             'data'    => TransactionResource::collection($transactions)
         ], 200);
     }
-    
+
     public function getTransactionById($id)
     {
         $transaction = Transaction::find($id);
@@ -56,10 +56,10 @@ class TransactionController extends Controller
         $data['user_id'] = $request->user()->id;
 
         $existingTransaction = Transaction::where('user_id', $data['user_id'])
-                                      ->where('wallet_id', $data['wallet_id']) 
-                                      ->where('category_id', $data['category_id']) 
-                                      ->where('description', $data['description']) 
-                                      ->first();
+            ->where('wallet_id', $data['wallet_id'])
+            ->where('category_id', $data['category_id'])
+            ->where('description', $data['description'])
+            ->first();
 
         if ($existingTransaction) {
             return response()->json([
@@ -103,6 +103,15 @@ class TransactionController extends Controller
                 'message' => 'Update Transaction success',
                 'data'    => new TransactionResource($Transaction)
             ]);
+        }
+        if ($request->recurring == 0) {
+            Transaction::all()->map(function ($transaction) use ($request) {
+                if ($transaction->recurring == 1 && $transaction->user_id == $request->user()->id) {
+                    Transaction::update([
+                        'recurring' => 0,
+                    ]);
+                }
+            });
         }
 
         return response([
