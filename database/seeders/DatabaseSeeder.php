@@ -50,33 +50,35 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Wallet::factory()->create([
-            'name'        => 'Cash Wallet',
-            'balance'     => 50000,
-            'is_active'   => true,
-            'user_id'     => 0
+            'name'      => 'Cash Wallet',
+            'balance'   => 50000,
+            'is_active' => true,
+            'user_id'   => 0
         ]);
 
         Wallet::factory()->create([
-            'name'        => 'Credit Card Wallet',
-            'balance'     => 1000000,
-            'is_active'   => false,
-            'user_id'     => 0
+            'name'      => 'Credit Card Wallet',
+            'balance'   => 1000000,
+            'is_active' => false,
+            'user_id'   => 0
         ]);
 
         Transaction::factory()->create([
             'user_id'     => 0,
             'wallet_id'   => 1,
             'category_id' => 1,
-            'amount'      => 50000, 
+            'amount'      => 50000,
             'description' => 'Sample transaction for seeding',
+            'recurring'   => 0
         ]);
 
         Transaction::factory()->create([
             'user_id'     => 0,
             'wallet_id'   => 1,
             'category_id' => 2,
-            'amount'      => 100000, 
+            'amount'      => 100000,
             'description' => 'Sample transaction for seeding 2',
+            'recurring'   => 0
         ]);
     }
 }

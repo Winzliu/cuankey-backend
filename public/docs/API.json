@@ -2077,8 +2077,8 @@
                                                 "id": "3",
                                                 "user_id": 1,
                                                 "name": "Credit Card Wallet",
-                                                "balance": 1000.00,
-                                                "is_active":true
+                                                "balance": 1000.0,
+                                                "is_active": true
                                             }
                                         }
                                     }
@@ -2399,7 +2399,7 @@
                                     "value": {
                                         "user_id": 1,
                                         "name": "New Wallet Name",
-                                        "balance": 500.00,
+                                        "balance": 500.0,
                                         "is_active": true
                                     }
                                 }
@@ -2841,6 +2841,9 @@
                                                         },
                                                         "description": {
                                                             "type": "string"
+                                                        },
+                                                        "recurring": {
+                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -2863,7 +2866,8 @@
                                                         "wallet_id": 1,
                                                         "category_id": 1,
                                                         "amount": 50000,
-                                                        "description": "Sample transaction 1"
+                                                        "description": "Sample transaction 1",
+                                                        "recurring": 1
                                                     },
                                                     {
                                                         "id": 2,
@@ -2871,7 +2875,8 @@
                                                         "wallet_id": 1,
                                                         "category_id": 2,
                                                         "amount": 100000,
-                                                        "description": "Sample transaction 2"
+                                                        "description": "Sample transaction 2",
+                                                        "recurring": 0
                                                     }
                                                 ]
                                             }
@@ -3002,6 +3007,9 @@
                                     },
                                     "description": {
                                         "type": "string"
+                                    },
+                                    "recurring": {
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -3014,7 +3022,8 @@
                                         "wallet_id": 2,
                                         "category_id": 2,
                                         "amount": 100000,
-                                        "description": "My friend owe me this"
+                                        "description": "My friend owe me this",
+                                        "recurring": 0
                                     }
                                 }
                             }
@@ -3055,6 +3064,12 @@
                                                         },
                                                         "balance": {
                                                             "type": "number"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "recurring": {
+                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -3075,7 +3090,8 @@
                                                 "wallet_id": 2,
                                                 "category_id": 2,
                                                 "amount": 100000,
-                                                "description": "Sample Transaction"
+                                                "description": "Sample Transaction",
+                                                "recurring": 0
                                             }
                                         }
                                     }
@@ -3262,6 +3278,9 @@
                                                 },
                                                 "description": {
                                                     "type": "string"
+                                                },
+                                                "recurring": {
+                                                    "type": "integer"
                                                 }
                                             }
                                         }
@@ -3280,7 +3299,8 @@
                                                 "wallet_id": 2,
                                                 "category_id": 1,
                                                 "amount": 100000,
-                                                "description": "Convenience Store"
+                                                "description": "Convenience Store",
+                                                "recurring": 0
                                             }
                                         }
                                     }
@@ -3390,10 +3410,11 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "wallet_id": {"type": "integer"},
-                                    "category_id": {"type": "integer"},
-                                    "amount": {"type": "number"},
-                                    "description": {"type": "string"}
+                                    "wallet_id": { "type": "integer" },
+                                    "category_id": { "type": "integer" },
+                                    "amount": { "type": "number" },
+                                    "description": { "type": "string" },
+                                    "recurring": { "type": "integer" }
                                 }
                             },
                             "examples": {
@@ -3403,7 +3424,8 @@
                                         "wallet_id": 2,
                                         "category_id": 1,
                                         "amount": 100000,
-                                        "description": "Convenience Store"
+                                        "description": "Convenience Store",
+                                        "recurring": 0
                                     }
                                 }
                             }
