@@ -26,8 +26,11 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "username": {
+                                    "fullname": {
                                         "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "integer"
                                     },
                                     "email": {
                                         "type": "string"
@@ -44,7 +47,8 @@
                                 "Julyant Anggara": {
                                     "description": "Example create user name Julyant Anggara",
                                     "value": {
-                                        "username": "Julyant Anggara",
+                                        "fullname": "Julyant Anggara",
+                                        "phone_number": "081362549889",
                                         "email": "julyant.anggara@gmail.com",
                                         "password": "password123",
                                         "password_confirmation": "password123"
@@ -77,8 +81,11 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
-                                                "username": {
+                                                "fullname": {
                                                     "type": "string"
+                                                },
+                                                "phone_number": {
+                                                    "type": "integer"
                                                 },
                                                 "email": {
                                                     "type": "string"
@@ -99,7 +106,8 @@
                                             "message": "Registration Successfully",
                                             "data": {
                                                 "id": "1",
-                                                "username": "Julyant Anggara",
+                                                "fullname": "Julyant Anggara",
+                                                "phone_number": "081362549889",
                                                 "email": "julyant.anggara@gmail.com",
                                                 "Token": "12345678"
                                             }
