@@ -51,4 +51,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/{id}', [App\Http\Controllers\TransactionController::class, 'updateTransaction']);
     Route::delete('/{id}', [App\Http\Controllers\TransactionController::class, 'deleteTransaction']);
   });
+
+  //Recurring
+  Route::group(['prefix' => 'recurring'], function () {
+    Route::post('/', [App\Http\Controllers\RecurringController::class, 'createRecurring']);
+    Route::get('/', [App\Http\Controllers\RecurringController::class, 'getRecurring']);
+    Route::get('/{id}', [App\Http\Controllers\RecurringController::class, 'getRecurringById']);
+    Route::put('/{id}', [App\Http\Controllers\RecurringController::class, 'updateRecurring']);
+    Route::delete('/{id}', [App\Http\Controllers\RecurringController::class, 'deleteRecurring']);
+  });
 });

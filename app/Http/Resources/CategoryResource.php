@@ -20,7 +20,11 @@ class CategoryResource extends JsonResource
             'description' => $this->description,
             'budget'      => $this->budget,
             'type'        => $this->type,
-            'user_id'     => $this->user_id
+            'user'        => [
+                'fullname'     => $this->user->fullname,
+                'phone_number' => $this->user->phone_number,
+                'email'        => $this->user->email,
+            ]
         ];
     }
 }

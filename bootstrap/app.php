@@ -19,5 +19,6 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('app:add-monthly-transaction')->monthlyOn(1, '00:00');
+        // $schedule->command('app:add-monthly-transaction')->monthlyOn(1, '00:00');
+        $schedule->command('app:add-monthly-transaction')->everyMinute();
     })->create();

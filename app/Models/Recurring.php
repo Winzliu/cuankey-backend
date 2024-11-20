@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Recurring extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'name',
         'user_id',
-        'description',
-        'budget',
-        'type'
+        'wallet_id',
+        'category_id',
+        'amount',
+        'is_active',
+        'description'
     ];
 
     public function user()
@@ -23,13 +23,12 @@ class Category extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function transaction()
+    public function wallet()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->belongsTo(Wallet::class);
     }
-
-    public function recurring()
+    public function category()
     {
-        return $this->hasMany(Recurring::class);
+        return $this->belongsTo(Category::class);
     }
 }

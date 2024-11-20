@@ -495,8 +495,11 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
-                                                        "username": {
+                                                        "fullname": {
                                                             "type": "string"
+                                                        },
+                                                        "phone_number": {
+                                                            "type": "integer"
                                                         },
                                                         "email": {
                                                             "type": "string"
@@ -517,7 +520,8 @@
                                                 "message": "Get Current User Successfully",
                                                 "data": {
                                                     "id": "1",
-                                                    "username": "Julyant Anggara",
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889",
                                                     "email": "julyant.anggara@gmail.com"
                                                 }
                                             }
@@ -951,6 +955,20 @@
                                                             },
                                                             "type": {
                                                                 "type": "string"
+                                                            },
+                                                            "user": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "fullname": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "phone_number": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "email": {
+                                                                        "type": "string"
+                                                                    }
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -973,14 +991,24 @@
                                                         "name": "Makanan",
                                                         "description": "Pengeluaran untuk makanan",
                                                         "budget": 100000,
-                                                        "type": "Pengeluaran"
+                                                        "type": "Pengeluaran",
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "aGxYs@example.com"
+                                                        }
                                                     },
                                                     {
                                                         "id": "2",
                                                         "name": "Gaji",
                                                         "description": "Pemasukan dari gaji",
                                                         "budget": null,
-                                                        "type": "Pemasukan"
+                                                        "type": "Pemasukan",
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "aGxYs@example.com"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -1163,8 +1191,19 @@
                                                         "type": {
                                                             "type": "string"
                                                         },
-                                                        "user_id": {
-                                                            "type": "number"
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1185,7 +1224,11 @@
                                                 "description": "Pengeluaran untuk makanan",
                                                 "budget": 100000,
                                                 "type": "Pengeluaran",
-                                                "user_id": 1
+                                                "user": {
+                                                    "fullname": "John Doe",
+                                                    "phone_number": "08123456789",
+                                                    "email": "2IgMh@example.com"
+                                                }
                                             }
                                         }
                                     }
@@ -2797,7 +2840,6 @@
                 }
             }
         },
-
         "/transaction": {
             "get": {
                 "tags": ["Transaction"],
@@ -3005,6 +3047,9 @@
                                     "wallet_id": {
                                         "type": "integer"
                                     },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
                                     "amount": {
                                         "type": "number"
                                     },
@@ -3056,8 +3101,14 @@
                                                         "user_id": {
                                                             "type": "integer"
                                                         },
-                                                        "name": {
-                                                            "type": "string"
+                                                        "wallet_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "category_id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "amount": {
+                                                            "type": "number"
                                                         },
                                                         "description": {
                                                             "type": "string"
@@ -3574,6 +3625,1162 @@
                 "responses": {
                     "200": {
                         "description": "Success Delete Transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Delete Transaction",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Delete Transaction Successfully"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/recurring": {
+            "get": {
+                "tags": ["Recurring"],
+                "summary": "Get All Recurring Transaction",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get Recurring Transaction Details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "wallet": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "is_active": {
+                                                                    "type": "boolean"
+                                                                }
+                                                            }
+                                                        },
+                                                        "category": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
+                                                                "budget": {
+                                                                    "type": "number"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "amount": {
+                                                            "type": "number"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Get Recurring Transaction Details",
+                                        "value": {
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Get Recurring Transaction Details Successfully",
+                                                "data": [
+                                                    {
+                                                        "id": 1,
+                                                        "user": {
+                                                            "fullname": "Julyant Anggara",
+                                                            "phone_number": "081362549889",
+                                                            "email": "julyant.anggara@gmail.com"
+                                                        },
+                                                        "wallet": {
+                                                            "name": "Wallet 1",
+                                                            "is_active": true
+                                                        },
+                                                        "category": {
+                                                            "name": "Category 1",
+                                                            "description": "Category 1 description",
+                                                            "budget": 100000,
+                                                            "type": "Pemasukan"
+                                                        },
+                                                        "amount": 50000,
+                                                        "is_active": true,
+                                                        "description": "Sample recurring transaction 1"
+                                                    },
+                                                    {
+                                                        "id": 2,
+                                                        "user": {
+                                                            "fullname": "Julyant Anggara",
+                                                            "phone_number": "081362549889",
+                                                            "email": "julyant.anggara@gmail.com"
+                                                        },
+                                                        "wallet": {
+                                                            "name": "Wallet 1",
+                                                            "is_active": true
+                                                        },
+                                                        "category": {
+                                                            "name": "Category 1",
+                                                            "description": "Category 1 description",
+                                                            "budget": 100000,
+                                                            "type": "Pemasukan"
+                                                        },
+                                                        "amount": 100000,
+                                                        "is_active": true,
+                                                        "description": "Sample recurring transaction 2"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Recurring"],
+                "summary": "Create Recurring Transaction",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "wallet_id": {
+                                        "type": "integer"
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "Wallet": {
+                                    "description": "Example create Transaction",
+                                    "value": {
+                                        "wallet_id": 2,
+                                        "category_id": 2,
+                                        "amount": 100000,
+                                        "description": "My friend owe me this"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create new Recurring Transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "wallet": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "is_active": {
+                                                                    "type": "integer"
+                                                                }
+                                                            }
+                                                        },
+                                                        "category": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
+                                                                "budget": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "amount": {
+                                                            "type": "number"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success create Transaction",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Create Transaction Successfully",
+                                            "data": {
+                                                "id": 3,
+                                                "user": {
+                                                    "fullname": "John Doe",
+                                                    "phone_number": "08123456789",
+                                                    "email": "7k8Ft@example.com"
+                                                },
+                                                "wallet": {
+                                                    "name": "Cash Wallet",
+                                                    "is_active": 1
+                                                },
+                                                "category": {
+                                                    "name": "Groceries",
+                                                    "description": "Groceries",
+                                                    "budget": 100000,
+                                                    "type": "Pengeluaran"
+                                                },
+                                                "amount": 100000,
+                                                "is_active": true,
+                                                "description": "Sample Transaction"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Errors": {
+                                        "description": "Invalid input data",
+                                        "value": {
+                                            "status": "bad request",
+                                            "code": 400,
+                                            "message": "Invalid input data",
+                                            "errors": {
+                                                "wallet_id": "Wallet ID is required",
+                                                "category_id": "Category ID is required",
+                                                "amount": "Amount is required"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/recurring/{id}": {
+            "get": {
+                "tags": ["Recurring"],
+                "summary": "Get Recurring Transaction by ID",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the recurring transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get recurring transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "fullname": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "wallet": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "category": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "budget": {
+                                                            "type": "integer"
+                                                        },
+                                                        "type": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "amount": {
+                                                    "type": "integer"
+                                                },
+                                                "is_active": {
+                                                    "type": "boolean"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success get recurring transaction",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Success get recurring transaction",
+                                            "data": {
+                                                "id": 2,
+                                                "user": {
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889",
+                                                    "email": "julyant.anggara@gmail.com"
+                                                },
+                                                "wallet": {
+                                                    "name": "Wallet 1",
+                                                    "is_active": true
+                                                },
+                                                "category": {
+                                                    "name": "Category 1",
+                                                    "description": "Category 1 description",
+                                                    "budget": 100000,
+                                                    "type": "Pemasukan"
+                                                },
+                                                "amount": 100000,
+                                                "is_active": true,
+                                                "description": "Convenience Store"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Not Found",
+                                        "value": {
+                                            "status": "not found",
+                                            "code": 404,
+                                            "message": "Transaction not found",
+                                            "errors": {
+                                                "message": "Transaction not found"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Recurring"],
+                "summary": "Recurring Transaction Wallet",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the recurring transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "wallet_id": { "type": "integer" },
+                                    "category_id": { "type": "integer" },
+                                    "amount": { "type": "number" },
+                                    "is_active": { "type": "boolean" },
+                                    "description": { "type": "string" }
+                                }
+                            },
+                            "examples": {
+                                "Wallet": {
+                                    "summary": "Example Transaction update",
+                                    "value": {
+                                        "wallet_id": 2,
+                                        "category_id": 1,
+                                        "amount": 100000,
+                                        "is_active": false,
+                                        "description": "Convenience Store"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Update Transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "wallet": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "is_active": {
+                                                                    "type": "integer"
+                                                                }
+                                                            }
+                                                        },
+                                                        "category": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
+                                                                "budget": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        "amount": {
+                                                            "type": "number"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Update Recurring Transaction",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Success Update Recurring Transaction",
+                                            "data": {
+                                                "id": 1,
+                                                "user": {
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889",
+                                                    "email": "julyant.anggara@gmail.com"
+                                                },
+                                                "wallet": {
+                                                    "name": "Wallet 1",
+                                                    "is_active": true
+                                                },
+                                                "category": {
+                                                    "name": "Category 1",
+                                                    "description": "Category 1 description",
+                                                    "budget": 100000,
+                                                    "type": "Pemasukan"
+                                                },
+                                                "amount": 100000,
+                                                "is_active": false,
+                                                "description": "Convenience Store"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Errors": {
+                                        "description": "Input data is not valid",
+                                        "value": {
+                                            "status": "bad request",
+                                            "code": 400,
+                                            "message": "Input data is not valid",
+                                            "errors": {
+                                                "wallet_id": "Wallet ID field is required",
+                                                "category_id": "Category ID field is required",
+                                                "amount": "Amount field is required"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Recurring"],
+                "summary": "Delete Recurring Transaction",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the Recurring Transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Recurring Transaction",
                         "content": {
                             "application/json": {
                                 "schema": {
