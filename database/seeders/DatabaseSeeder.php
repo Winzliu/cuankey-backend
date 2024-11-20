@@ -19,10 +19,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'id'       => 0,
-            'username' => 'Admin',
-            'email'    => 'admin@gmail.com',
-            'password' => bcrypt('password123'),
+            'id'           => 0,
+            'fullname'     => 'Admin',
+            'phone_number' => '000000000',
+            'email'        => 'admin@gmail.com',
+            'password'     => bcrypt('password123'),
         ]);
 
         category::factory()->create([
@@ -50,24 +51,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Wallet::factory()->create([
-            'name'        => 'Cash Wallet',
-            'balance'     => 50000,
-            'is_active'   => true,
-            'user_id'     => 0
+            'name'      => 'Cash Wallet',
+            'balance'   => 50000,
+            'is_active' => true,
+            'user_id'   => 0
         ]);
 
         Wallet::factory()->create([
-            'name'        => 'Credit Card Wallet',
-            'balance'     => 1000000,
-            'is_active'   => false,
-            'user_id'     => 0
+            'name'      => 'Credit Card Wallet',
+            'balance'   => 1000000,
+            'is_active' => false,
+            'user_id'   => 0
         ]);
 
         Transaction::factory()->create([
             'user_id'     => 0,
             'wallet_id'   => 1,
             'category_id' => 1,
-            'amount'      => 50000, 
+            'amount'      => 50000,
             'description' => 'Sample transaction for seeding',
         ]);
 
@@ -75,7 +76,7 @@ class DatabaseSeeder extends Seeder
             'user_id'     => 0,
             'wallet_id'   => 1,
             'category_id' => 2,
-            'amount'      => 100000, 
+            'amount'      => 100000,
             'description' => 'Sample transaction for seeding 2',
         ]);
     }
