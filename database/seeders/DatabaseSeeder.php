@@ -70,6 +70,7 @@ class DatabaseSeeder extends Seeder
             'category_id' => 1,
             'amount'      => 50000,
             'description' => 'Sample transaction for seeding',
+            'recurring'   => 0
         ]);
 
         Transaction::factory()->create([
@@ -78,6 +79,7 @@ class DatabaseSeeder extends Seeder
             'category_id' => 2,
             'amount'      => 100000,
             'description' => 'Sample transaction for seeding 2',
+            'recurring'   => 0
         ]);
     }
 }
