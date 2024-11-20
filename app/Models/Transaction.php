@@ -14,8 +14,7 @@ class Transaction extends Model
         'wallet_id',
         'category_id',
         'amount',
-        'description',
-        'recurring',
+        'description'
     ];
 
     public function user()
@@ -27,9 +26,8 @@ class Transaction extends Model
     {
         return $this->belongsTo(Wallet::class);
     }
-
-    public function transaction()
+    public function category()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
 }

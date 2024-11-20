@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->decimal('balance', 25, 2)->default(0);
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

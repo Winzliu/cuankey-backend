@@ -9,19 +9,15 @@ class Wallet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'balance', 'is_active'];
-
-    public static function userHasActiveWallet($userId)
-    {
-        return self::where('user_id', $userId)->where('is_active', true)->exists();
-    }
+    protected $fillable = ['user_id', 'name', 'is_active'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function wallet()
+
+    public function transaction()
     {
-        return $this->belongsTo(Wallet::class);
+        return $this->hasMany(Transaction::class);
     }
 }

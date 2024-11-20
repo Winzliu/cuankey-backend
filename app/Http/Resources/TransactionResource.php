@@ -20,8 +20,7 @@ class TransactionResource extends JsonResource
             'wallet_id'   => $this->wallet_id,
             'category_id' => $this->category_id,
             'amount'      => $this->amount,
-            'description' => $this->description,
-            'recurring'   => $this->recurring,
+            'description' => $this->description
         ];
     }
 }

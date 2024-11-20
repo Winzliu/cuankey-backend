@@ -104,15 +104,6 @@ class TransactionController extends Controller
                 'data'    => new TransactionResource($Transaction)
             ]);
         }
-        if ($request->recurring == 0) {
-            Transaction::all()->map(function ($transaction) use ($request) {
-                if ($transaction->recurring == 1 && $transaction->user_id == $request->user()->id) {
-                    Transaction::update([
-                        'recurring' => 0,
-                    ]);
-                }
-            });
-        }
 
         return response([
             'status'  => 'not found',

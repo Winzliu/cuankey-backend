@@ -72,9 +72,6 @@
                                                         },
                                                         "description": {
                                                             "type": "string"
-                                                        },
-                                                        "recurring": {
-                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -97,8 +94,7 @@
                                                         "wallet_id": 1,
                                                         "category_id": 1,
                                                         "amount": 50000,
-                                                        "description": "Sample transaction 1",
-                                                        "recurring": 1
+                                                        "description": "Sample transaction 1"
                                                     },
                                                     {
                                                         "id": 2,
@@ -106,8 +102,7 @@
                                                         "wallet_id": 1,
                                                         "category_id": 2,
                                                         "amount": 100000,
-                                                        "description": "Sample transaction 2",
-                                                        "recurring": 0
+                                                        "description": "Sample transaction 2"
                                                     }
                                                 ]
                                             }
@@ -224,12 +219,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
                                     "wallet_id": {
                                         "type": "integer"
                                     },
@@ -238,9 +227,6 @@
                                     },
                                     "description": {
                                         "type": "string"
-                                    },
-                                    "recurring": {
-                                        "type": "integer"
                                     }
                                 }
                             },
@@ -248,13 +234,10 @@
                                 "Wallet": {
                                     "description": "Example create Transaction",
                                     "value": {
-                                        "id": 3,
-                                        "user_id": 1,
                                         "wallet_id": 2,
                                         "category_id": 2,
                                         "amount": 100000,
-                                        "description": "My friend owe me this",
-                                        "recurring": 0
+                                        "description": "My friend owe me this"
                                     }
                                 }
                             }
@@ -293,14 +276,8 @@
                                                         "name": {
                                                             "type": "string"
                                                         },
-                                                        "balance": {
-                                                            "type": "number"
-                                                        },
                                                         "description": {
                                                             "type": "string"
-                                                        },
-                                                        "recurring": {
-                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -321,8 +298,7 @@
                                                 "wallet_id": 2,
                                                 "category_id": 2,
                                                 "amount": 100000,
-                                                "description": "Sample Transaction",
-                                                "recurring": 0
+                                                "description": "Sample Transaction"
                                             }
                                         }
                                     }
@@ -401,7 +377,6 @@
                                             "code": 400,
                                             "message": "Invalid input data",
                                             "errors": {
-                                                "user_id": "User ID is required",
                                                 "wallet_id": "Wallet ID is required",
                                                 "category_id": "Category ID is required",
                                                 "amount": "Amount is required"
@@ -470,6 +445,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -509,9 +493,6 @@
                                                 },
                                                 "description": {
                                                     "type": "string"
-                                                },
-                                                "recurring": {
-                                                    "type": "integer"
                                                 }
                                             }
                                         }
@@ -530,8 +511,7 @@
                                                 "wallet_id": 2,
                                                 "category_id": 1,
                                                 "amount": 100000,
-                                                "description": "Convenience Store",
-                                                "recurring": 0
+                                                "description": "Convenience Store"
                                             }
                                         }
                                     }
@@ -632,6 +612,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -644,8 +633,7 @@
                                     "wallet_id": { "type": "integer" },
                                     "category_id": { "type": "integer" },
                                     "amount": { "type": "number" },
-                                    "description": { "type": "string" },
-                                    "recurring": { "type": "integer" }
+                                    "description": { "type": "string" }
                                 }
                             },
                             "examples": {
@@ -655,8 +643,7 @@
                                         "wallet_id": 2,
                                         "category_id": 1,
                                         "amount": 100000,
-                                        "description": "Convenience Store",
-                                        "recurring": 0
+                                        "description": "Convenience Store"
                                     }
                                 }
                             }
@@ -787,6 +774,15 @@
                         "in": "path",
                         "required": true,
                         "description": "ID of the Transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }

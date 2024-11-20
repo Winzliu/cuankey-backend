@@ -12,7 +12,26 @@ class WalletController extends Controller
 {
     public function getWallet(Request $request)
     {
-        $wallets = Wallet::whereIn('user_id', [$request->user()->id, 0])->get();
+        $wallets = Wallet::where('user_id', [$request->user()->id, 0])
+        ->withSum(['transaction as total_income' => function ($query) {
+            $query->whereHas('category', function ($categoryQuery) {
+                $categoryQuery->where('type', 'Pemasukan');
+            });
+        }], 'amount')
+        ->withSum(['transaction as total_expenses' => function ($query) {
+            $query->whereHas('category', function ($categoryQuery) {
+                $categoryQuery->where('type', 'Pengeluaran');
+            });
+        }], 'amount')
+        ->get()
+        ->map(function ($wallet) {
+            $total_income = $wallet->total_income ?? 0;
+            $total_expenses = $wallet->total_expenses ?? 0;
+
+            $wallet->total_balance = $total_income - $total_expenses;
+
+            return $wallet;
+        });
 
         return response()->json([
             'status'  => 'success',
@@ -55,10 +74,9 @@ class WalletController extends Controller
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
-        $wallet = Wallet::where('name', $data['name'])->first();
-        $walletExists = Wallet::where('user_id', $data['user_id'])->where('name', $data['name'])->exists();
-        
-        if ($walletExists) {
+        $wallet = Wallet::where('user_id', $data['user_id'])->where('name', $data['name'])->first();
+
+        if ($wallet) {
             return response()->json([
                 'status'  => 'bad request',
                 'code'    => 400,
@@ -69,8 +87,9 @@ class WalletController extends Controller
             ]);
         }
 
+        
         if (!$wallet) {
-            $hasActiveWallet = Wallet::where('is_active', true)->exists();
+            $hasActiveWallet = Wallet::where('user_id', $data['user_id'])->where('is_active', true)->exists();
             $data['is_active'] = !$hasActiveWallet;
             $wallet = Wallet::create($data);
 

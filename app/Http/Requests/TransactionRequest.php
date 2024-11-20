@@ -28,8 +28,7 @@ class TransactionRequest extends FormRequest
                 'wallet_id'   => 'required|exists:wallets,id',
                 'category_id' => 'required|exists:categories,id',
                 'amount'      => 'required|numeric|min:0.01',
-                'description' => 'nullable|string|max:255',
-                'recurring'   => 'nullable|integer|in:0,1,2',
+                'description' => 'nullable|string|max:255'
             ];
         }
 
@@ -38,8 +37,7 @@ class TransactionRequest extends FormRequest
                 'wallet_id'   => 'sometimes|exists:wallets,id',
                 'category_id' => 'sometimes|exists:categories,id',
                 'amount'      => 'sometimes|required|numeric|min:0.01',
-                'description' => 'nullable|string|max:255',
-                'recurring'   => 'nullable|integer|in:0,1,2',
+                'description' => 'nullable|string|max:255'
             ];
         }
     }

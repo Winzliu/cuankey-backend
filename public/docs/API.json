@@ -1843,9 +1843,6 @@
                                                         "name": {
                                                             "type": "string"
                                                         },
-                                                        "balance": {
-                                                            "type": "number"
-                                                        },
                                                         "is_active": {
                                                             "type": "boolean"
                                                         }
@@ -1868,14 +1865,12 @@
                                                         "id": 1,
                                                         "user_id": 0,
                                                         "name": "Cash Wallet",
-                                                        "balance": 50000,
                                                         "is_active": 0
                                                     },
                                                     {
                                                         "id": 2,
                                                         "user_id": 0,
                                                         "name": "Credit Card Wallet",
-                                                        "balance": 100000,
                                                         "is_active": 1
                                                     }
                                                 ]
@@ -1993,20 +1988,8 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
                                     "name": {
                                         "type": "string"
-                                    },
-                                    "balance": {
-                                        "type": "number"
-                                    },
-                                    "is_active": {
-                                        "type": "boolean"
                                     }
                                 }
                             },
@@ -2014,11 +1997,7 @@
                                 "Wallet": {
                                     "description": "Example create Wallet",
                                     "value": {
-                                        "id": 3,
-                                        "user_id": 1,
-                                        "name": "Bank Wallet",
-                                        "balance": 100000,
-                                        "is_active": false
+                                        "name": "Bank Wallet"
                                     }
                                 }
                             }
@@ -2057,8 +2036,8 @@
                                                         "name": {
                                                             "type": "string"
                                                         },
-                                                        "balance": {
-                                                            "type": "number"
+                                                        "is_active": {
+                                                            "type": "boolean"
                                                         }
                                                     }
                                                 }
@@ -2077,7 +2056,6 @@
                                                 "id": "3",
                                                 "user_id": 1,
                                                 "name": "Credit Card Wallet",
-                                                "balance": 1000.0,
                                                 "is_active": true
                                             }
                                         }
@@ -2158,7 +2136,6 @@
                                             "message": "Invalid input data",
                                             "errors": {
                                                 "user_id": "User ID is required",
-                                                "balance": "Balance is required",
                                                 "is_active": "Status is required",
                                                 "name": "Name is required"
                                             }
@@ -2226,6 +2203,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2257,9 +2243,6 @@
                                                 "name": {
                                                     "type": "string"
                                                 },
-                                                "balance": {
-                                                    "type": "integer"
-                                                },
                                                 "is_active": {
                                                     "type": "boolean"
                                                 }
@@ -2277,7 +2260,6 @@
                                             "data": {
                                                 "id": 2,
                                                 "name": "Credit Card Wallet",
-                                                "balance": 1000000,
                                                 "is_active": 0
                                             }
                                         }
@@ -2379,6 +2361,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -2389,7 +2380,6 @@
                                 "type": "object",
                                 "properties": {
                                     "name": { "type": "string" },
-                                    "balance": { "type": "number" },
                                     "is_active": { "type": "boolean" }
                                 }
                             },
@@ -2399,7 +2389,6 @@
                                     "value": {
                                         "user_id": 1,
                                         "name": "New Wallet Name",
-                                        "balance": 500.0,
                                         "is_active": true
                                     }
                                 }
@@ -2463,8 +2452,7 @@
                                             "code": 400,
                                             "message": "Input data is not valid",
                                             "errors": {
-                                                "name": "Name field is required",
-                                                "balance": "Balance field is required"
+                                                "name": "Name field is required"
                                             }
                                         }
                                     }
@@ -2530,6 +2518,15 @@
                         "in": "path",
                         "required": true,
                         "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2669,6 +2666,15 @@
                         "in": "path",
                         "required": true,
                         "description": "ID of the wallet",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -2841,9 +2847,6 @@
                                                         },
                                                         "description": {
                                                             "type": "string"
-                                                        },
-                                                        "recurring": {
-                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -2866,8 +2869,7 @@
                                                         "wallet_id": 1,
                                                         "category_id": 1,
                                                         "amount": 50000,
-                                                        "description": "Sample transaction 1",
-                                                        "recurring": 1
+                                                        "description": "Sample transaction 1"
                                                     },
                                                     {
                                                         "id": 2,
@@ -2875,8 +2877,7 @@
                                                         "wallet_id": 1,
                                                         "category_id": 2,
                                                         "amount": 100000,
-                                                        "description": "Sample transaction 2",
-                                                        "recurring": 0
+                                                        "description": "Sample transaction 2"
                                                     }
                                                 ]
                                             }
@@ -2993,12 +2994,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
                                     "wallet_id": {
                                         "type": "integer"
                                     },
@@ -3007,9 +3002,6 @@
                                     },
                                     "description": {
                                         "type": "string"
-                                    },
-                                    "recurring": {
-                                        "type": "integer"
                                     }
                                 }
                             },
@@ -3017,13 +3009,10 @@
                                 "Wallet": {
                                     "description": "Example create Transaction",
                                     "value": {
-                                        "id": 3,
-                                        "user_id": 1,
                                         "wallet_id": 2,
                                         "category_id": 2,
                                         "amount": 100000,
-                                        "description": "My friend owe me this",
-                                        "recurring": 0
+                                        "description": "My friend owe me this"
                                     }
                                 }
                             }
@@ -3062,14 +3051,8 @@
                                                         "name": {
                                                             "type": "string"
                                                         },
-                                                        "balance": {
-                                                            "type": "number"
-                                                        },
                                                         "description": {
                                                             "type": "string"
-                                                        },
-                                                        "recurring": {
-                                                            "type": "integer"
                                                         }
                                                     }
                                                 }
@@ -3090,8 +3073,7 @@
                                                 "wallet_id": 2,
                                                 "category_id": 2,
                                                 "amount": 100000,
-                                                "description": "Sample Transaction",
-                                                "recurring": 0
+                                                "description": "Sample Transaction"
                                             }
                                         }
                                     }
@@ -3170,7 +3152,6 @@
                                             "code": 400,
                                             "message": "Invalid input data",
                                             "errors": {
-                                                "user_id": "User ID is required",
                                                 "wallet_id": "Wallet ID is required",
                                                 "category_id": "Category ID is required",
                                                 "amount": "Amount is required"
@@ -3239,6 +3220,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3278,9 +3268,6 @@
                                                 },
                                                 "description": {
                                                     "type": "string"
-                                                },
-                                                "recurring": {
-                                                    "type": "integer"
                                                 }
                                             }
                                         }
@@ -3299,8 +3286,7 @@
                                                 "wallet_id": 2,
                                                 "category_id": 1,
                                                 "amount": 100000,
-                                                "description": "Convenience Store",
-                                                "recurring": 0
+                                                "description": "Convenience Store"
                                             }
                                         }
                                     }
@@ -3401,6 +3387,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -3413,8 +3408,7 @@
                                     "wallet_id": { "type": "integer" },
                                     "category_id": { "type": "integer" },
                                     "amount": { "type": "number" },
-                                    "description": { "type": "string" },
-                                    "recurring": { "type": "integer" }
+                                    "description": { "type": "string" }
                                 }
                             },
                             "examples": {
@@ -3424,8 +3418,7 @@
                                         "wallet_id": 2,
                                         "category_id": 1,
                                         "amount": 100000,
-                                        "description": "Convenience Store",
-                                        "recurring": 0
+                                        "description": "Convenience Store"
                                     }
                                 }
                             }
@@ -3556,6 +3549,15 @@
                         "in": "path",
                         "required": true,
                         "description": "ID of the Transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }

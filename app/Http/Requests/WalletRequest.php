@@ -25,15 +25,13 @@ class WalletRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => 'required|string|max:255',
-                'balance' => 'nullable|numeric|min:0',
+                'name' => 'required|string|max:255'
             ];
         }
 
         if ($this->isMethod('put')) {
             return [
-                'name' => 'sometimes|string|max:255',
-                'balance' => 'nullable|numeric|min:0',
+                'name' => 'sometimes|string|max:255'
             ];
         }
     }
