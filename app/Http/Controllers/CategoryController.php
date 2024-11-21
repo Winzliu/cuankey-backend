@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function getCategory(Request $request)
     {
-        $categories = Category::whereIn('user_id', [$request->user()->id, 0])->get();
+        $categories = Category::where('user_id', $request->user()->id)->get();
 
         return response()->json([
             'status'  => 'success',
