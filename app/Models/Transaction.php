@@ -14,7 +14,8 @@ class Transaction extends Model
         'wallet_id',
         'category_id',
         'amount',
-        'description'
+        'description',
+        'transaction_date'
     ];
 
     public function user()

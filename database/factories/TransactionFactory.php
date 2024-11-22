@@ -21,11 +21,12 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'wallet_id' => Wallet::factory(),
-            'category_id' => Category::factory(),
-            'amount' => $this->faker->randomFloat(3, 0.01, 10000), 
-            'description' => $this->faker->sentence,
+            'user_id'           => User::factory(),
+            'wallet_id'         => Wallet::factory(),
+            'category_id'       => Category::factory(),
+            'amount'            => $this->faker->randomFloat(3, 0.01, 10000), 
+            'description'       => $this->faker->sentence,
+            'transaction_date'  => $this->faker->date('d F Y')
         ];
     }
 }

@@ -1888,14 +1888,31 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
-                                                        "user_id": {
-                                                            "type": "integer"
-                                                        },
                                                         "name": {
                                                             "type": "string"
                                                         },
+                                                        "initial_balance": {
+                                                            "type":"integer"
+                                                        },
+                                                        "total_balance":{
+                                                            "type": "integer"
+                                                        },
                                                         "is_active": {
                                                             "type": "boolean"
+                                                        },
+                                                        "user": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1914,15 +1931,31 @@
                                                 "data": [
                                                     {
                                                         "id": 1,
-                                                        "user_id": 0,
                                                         "name": "Cash Wallet",
-                                                        "is_active": 0
+                                                        "initial_balance": 100000,
+                                                        "total_income": 200000,
+                                                        "total_outcome": 50000,
+                                                        "total_balance": 250000,
+                                                        "is_active": 1,
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "aGxYs@example.com"
+                                                        }
                                                     },
                                                     {
                                                         "id": 2,
-                                                        "user_id": 0,
-                                                        "name": "Credit Card Wallet",
-                                                        "is_active": 1
+                                                        "name": "Bank Wallet",
+                                                        "initial_balance": 800000,
+                                                        "total_income": 900000,
+                                                        "total_outcome": 50000,
+                                                        "total_balance": 1650000,
+                                                        "is_active": 1,
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "aGxYs@example.com"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -2041,6 +2074,9 @@
                                 "properties": {
                                     "name": {
                                         "type": "string"
+                                    },
+                                    "initial_balance": {
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -2048,7 +2084,8 @@
                                 "Wallet": {
                                     "description": "Example create Wallet",
                                     "value": {
-                                        "name": "Bank Wallet"
+                                        "name": "Bank Wallet",
+                                        "initial_balance": "50000"
                                     }
                                 }
                             }
@@ -2081,14 +2118,28 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
-                                                        "user_id": {
-                                                            "type": "integer"
-                                                        },
                                                         "name": {
                                                             "type": "string"
                                                         },
+                                                        "initial_balance": {
+                                                            "type":"integer"
+                                                        },
                                                         "is_active": {
                                                             "type": "boolean"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2104,10 +2155,19 @@
                                             "code": 200,
                                             "message": "Create Wallet Successfully",
                                             "data": {
-                                                "id": "3",
-                                                "user_id": 1,
-                                                "name": "Credit Card Wallet",
-                                                "is_active": true
+                                                "id": 1,
+                                                "name": "Bank Wallet",
+                                                "initial_balance": 50000,
+                                                "total_income": 0,
+                                                "total_outcome": 0,
+                                                "total_balance": 50000,
+                                                "is_active": false,
+                                                "transactions": null,
+                                                "user": {
+                                                    "fullname": "John Doe",
+                                                    "phone_number": "08123456789",
+                                                    "email": "aGxYs@example.com"
+                                                }
                                             }
                                         }
                                     }
@@ -2186,9 +2246,8 @@
                                             "code": 400,
                                             "message": "Invalid input data",
                                             "errors": {
-                                                "user_id": "User ID is required",
-                                                "is_active": "Status is required",
-                                                "name": "Name is required"
+                                                "name": "Wallet Name is required",
+                                                "initial_balance": "Initial Balance is required"
                                             }
                                         }
                                     }
@@ -2267,7 +2326,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success get category",
+                        "description": "Success get wallet",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2285,17 +2344,11 @@
                                         "data": {
                                             "type": "object",
                                             "properties": {
-                                                "id": {
-                                                    "type": "string"
-                                                },
-                                                "user_id": {
-                                                    "type": "string"
-                                                },
                                                 "name": {
                                                     "type": "string"
                                                 },
-                                                "is_active": {
-                                                    "type": "boolean"
+                                                "initial_balance": {
+                                                    "type": "integer"
                                                 }
                                             }
                                         }
@@ -2309,9 +2362,20 @@
                                             "code": 200,
                                             "message": "Success get wallet",
                                             "data": {
-                                                "id": 2,
-                                                "name": "Credit Card Wallet",
-                                                "is_active": 0
+                                                "id": 1,
+                                                "name": "Cash Wallet",
+                                                "initial_balance": 100000,
+                                                "total_income": 200000,
+                                                "total_outcome": 50000,
+                                                "total_balance": 250000,
+                                                "is_active": 1,
+                                                "transactions": {
+                                                            "category": "Makanan",
+                                                            "transaction_type": "Pengeluaran",
+                                                            "date": "22 Nov 2024",
+                                                            "description": "KFC",
+                                                            "amount": 50000
+                                                }
                                             }
                                         }
                                     }
@@ -2431,16 +2495,15 @@
                                 "type": "object",
                                 "properties": {
                                     "name": { "type": "string" },
-                                    "is_active": { "type": "boolean" }
+                                    "initial_balance": { "type": "integer" }
                                 }
                             },
                             "examples": {
                                 "Wallet": {
                                     "summary": "Example Wallet update",
                                     "value": {
-                                        "user_id": 1,
                                         "name": "New Wallet Name",
-                                        "is_active": true
+                                        "initial_balance": 40000
                                     }
                                 }
                             }
@@ -2503,7 +2566,8 @@
                                             "code": 400,
                                             "message": "Input data is not valid",
                                             "errors": {
-                                                "name": "Name field is required"
+                                                "name": "Name field is required",
+                                                "initial_balance": "Initial Balance is required"
                                             }
                                         }
                                     }
@@ -2886,17 +2950,34 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
-                                                        "user_id": {
-                                                            "type": "integer"
+                                                        "wallet": {
+                                                            "type": "string"
                                                         },
-                                                        "wallet_id": {
-                                                            "type": "integer"
+                                                        "category": {
+                                                            "type": "string"
                                                         },
                                                         "amount": {
                                                             "type": "number"
                                                         },
                                                         "description": {
                                                             "type": "string"
+                                                        },
+                                                        "transaction_date": {
+                                                            "type": "string"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2915,20 +2996,31 @@
                                                 "data": [
                                                     {
                                                         "id": 1,
-                                                        "user_id": 1,
-                                                        "wallet_id": 1,
-                                                        "category_id": 1,
+                                                        "wallet": "Cash Wallet",
+                                                        "category": "Makanan",
                                                         "amount": 50000,
-                                                        "description": "Sample transaction 1"
+                                                        "description": "KFC",
+                                                        "transaction_date": "22 November 2024",
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "2IgMh@example.com"
+                                                        }
                                                     },
                                                     {
                                                         "id": 2,
-                                                        "user_id": 1,
-                                                        "wallet_id": 1,
-                                                        "category_id": 2,
-                                                        "amount": 100000,
-                                                        "description": "Sample transaction 2"
+                                                        "wallet": "Cash Wallet",
+                                                        "category": "Makanan",
+                                                        "amount": 15000,
+                                                        "description": "Nasi Padang",
+                                                        "transaction_date": "22 November 2024",
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "2IgMh@example.com"
+                                                        }
                                                     }
+                                                    
                                                 ]
                                             }
                                         }
@@ -3055,6 +3147,9 @@
                                     },
                                     "description": {
                                         "type": "string"
+                                    },
+                                    "transaction_date":{
+                                        "type": "string"
                                     }
                                 }
                             },
@@ -3062,10 +3157,11 @@
                                 "Wallet": {
                                     "description": "Example create Transaction",
                                     "value": {
-                                        "wallet_id": 2,
+                                        "wallet_id": 1,
                                         "category_id": 2,
                                         "amount": 100000,
-                                        "description": "My friend owe me this"
+                                        "description": "Work",
+                                        "transaction_date": "20 November 2024"
                                     }
                                 }
                             }
@@ -3098,20 +3194,34 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
-                                                        "user_id": {
-                                                            "type": "integer"
+                                                        "wallet": {
+                                                            "type": "string"
                                                         },
-                                                        "wallet_id": {
-                                                            "type": "integer"
-                                                        },
-                                                        "category_id": {
-                                                            "type": "integer"
+                                                        "category": {
+                                                            "type": "string"
                                                         },
                                                         "amount": {
                                                             "type": "number"
                                                         },
                                                         "description": {
                                                             "type": "string"
+                                                        },
+                                                        "transaction_date": {
+                                                            "type": "string"
+                                                        },
+                                                        "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -3128,11 +3238,16 @@
                                             "message": "Create Transaction Successfully",
                                             "data": {
                                                 "id": 3,
-                                                "user_id": 1,
-                                                "wallet_id": 2,
-                                                "category_id": 2,
+                                                "wallet": "Cash Wallet",
+                                                "category": "Gaji",
                                                 "amount": 100000,
-                                                "description": "Sample Transaction"
+                                                "description": "Work",
+                                                "transaction_date": "20 November 2024",
+                                                "user": {
+                                                    "fullname": "John Doe",
+                                                    "phone_number": "08123456789",
+                                                    "email": "2IgMh@example.com"
+                                                }
                                             }
                                         }
                                     }
@@ -3213,7 +3328,8 @@
                                             "errors": {
                                                 "wallet_id": "Wallet ID is required",
                                                 "category_id": "Category ID is required",
-                                                "amount": "Amount is required"
+                                                "amount": "Amount is required",
+                                                "transaction_date": "Transaction Date is required"
                                             }
                                         }
                                     }
@@ -3313,19 +3429,19 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
-                                                "user_id": {
+                                                "wallet": {
                                                     "type": "string"
                                                 },
-                                                "wallet_id": {
-                                                    "type": "string"
-                                                },
-                                                "category_id": {
+                                                "category": {
                                                     "type": "string"
                                                 },
                                                 "amount": {
                                                     "type": "integer"
                                                 },
                                                 "description": {
+                                                    "type": "string"
+                                                },
+                                                "transaction_date":{
                                                     "type": "string"
                                                 }
                                             }
@@ -3467,17 +3583,19 @@
                                     "wallet_id": { "type": "integer" },
                                     "category_id": { "type": "integer" },
                                     "amount": { "type": "number" },
-                                    "description": { "type": "string" }
+                                    "description": { "type": "string" },
+                                    "transaction_date": { "type": "string"}
                                 }
                             },
                             "examples": {
                                 "Wallet": {
                                     "summary": "Example Transaction update",
                                     "value": {
-                                        "wallet_id": 2,
+                                        "wallet_id": 1,
                                         "category_id": 1,
                                         "amount": 100000,
-                                        "description": "Convenience Store"
+                                        "description": "Convenience Store",
+                                        "transaction_date": "19 November 2024"
                                     }
                                 }
                             }
@@ -3542,7 +3660,8 @@
                                             "errors": {
                                                 "wallet_id": "Wallet ID field is required",
                                                 "category_id": "Category ID field is required",
-                                                "amount": "Amount field is required"
+                                                "amount": "Amount field is required",
+                                                "transaction_date": "Transaction Date field is required"
                                             }
                                         }
                                     }

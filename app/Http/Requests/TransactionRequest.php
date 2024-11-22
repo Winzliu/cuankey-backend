@@ -25,19 +25,21 @@ class TransactionRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'wallet_id'   => 'required|exists:wallets,id',
-                'category_id' => 'required|exists:categories,id',
-                'amount'      => 'required|numeric|min:0.01',
-                'description' => 'nullable|string|max:255'
+                'wallet_id'         => 'required|exists:wallets,id',
+                'category_id'       => 'required|exists:categories,id',
+                'amount'            => 'required|numeric|min:0.01',
+                'description'       => 'nullable|string|max:255',
+                'transaction_date'  => 'required|date',
             ];
         }
 
         if ($this->isMethod('put')) {
             return [
-                'wallet_id'   => 'sometimes|exists:wallets,id',
-                'category_id' => 'sometimes|exists:categories,id',
-                'amount'      => 'sometimes|required|numeric|min:0.01',
-                'description' => 'nullable|string|max:255'
+                'wallet_id'         => 'sometimes|exists:wallets,id',
+                'category_id'       => 'sometimes|exists:categories,id',
+                'amount'            => 'sometimes|required|numeric|min:0.01',
+                'description'       => 'nullable|string|max:255',
+                'transaction_date'  => 'sometimes|date',
             ];
         }
     }

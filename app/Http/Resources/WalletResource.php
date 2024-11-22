@@ -31,6 +31,11 @@ class WalletResource extends JsonResource
                     'amount'                => $transaction->amount,
                 ];
             }),
+            'user'        => [
+                'fullname'     => $this->user->fullname,
+                'phone_number' => $this->user->phone_number,
+                'email'        => $this->user->email,
+            ]
         ];
     }
 }
