@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryEditRequest;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Models\category;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,10 +16,10 @@ class CategoryController extends Controller
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
-        $category = category::where('name', $data['name'])->first();
+        $category = Category::where('name', $data['name'])->first();
 
         if (!$category) {
-            $data = category::create($data);
+            $data = Category::create($data);
 
             return response()->json([
                 'status'  => 'success',
@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function getCategory(Request $request)
     {
-        $categories = category::whereIn('user_id', [$request->user()->id, 0])->get();
+        $categories = Category::where('user_id', $request->user()->id)->get();
 
         return response()->json([
             'status'  => 'success',
@@ -61,7 +61,7 @@ class CategoryController extends Controller
             ], 403);
         }
 
-        $category = category::find($id);
+        $category = Category::find($id);
 
         if ($category) {
             return response()->json([
@@ -91,7 +91,7 @@ class CategoryController extends Controller
 
         $data = $request->validated();
 
-        $category = category::find($id);
+        $category = Category::find($id);
         if ($category) {
             $category->update($data);
             return response()->json([
@@ -119,7 +119,7 @@ class CategoryController extends Controller
             ], 403);
         }
 
-        $category = category::find($id);
+        $category = Category::find($id);
         if ($category) {
             $category->delete();
             return response()->json([

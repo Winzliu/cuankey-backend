@@ -26,29 +26,29 @@ class DatabaseSeeder extends Seeder
             'password'     => bcrypt('password123'),
         ]);
 
-        category::factory()->create([
-            'name'        => 'Makanan',
-            'description' => 'Pengeluaran untuk makanan',
-            'budget'      => null,
-            'type'        => 'Pengeluaran',
-            'user_id'     => 0
-        ]);
+        // category::factory()->create([
+        //     'name'        => 'Makanan',
+        //     'description' => 'Pengeluaran untuk makanan',
+        //     'budget'      => null,
+        //     'type'        => 'Pengeluaran',
+        //     'user_id'     => 0
+        // ]);
 
-        category::factory()->create([
-            'name'        => 'Gaji',
-            'description' => 'Pemasukan dari gaji',
-            'budget'      => null,
-            'type'        => 'Pemasukan',
-            'user_id'     => 0
-        ]);
+        // category::factory()->create([
+        //     'name'        => 'Gaji',
+        //     'description' => 'Pemasukan dari gaji',
+        //     'budget'      => null,
+        //     'type'        => 'Pemasukan',
+        //     'user_id'     => 0
+        // ]);
 
-        category::factory()->create([
-            'name'        => 'Transportasi',
-            'description' => 'Pengeluaran untuk transportasi',
-            'budget'      => null,
-            'type'        => 'Pengeluaran',
-            'user_id'     => 0
-        ]);
+        // category::factory()->create([
+        //     'name'        => 'Transportasi',
+        //     'description' => 'Pengeluaran untuk transportasi',
+        //     'budget'      => null,
+        //     'type'        => 'Pengeluaran',
+        //     'user_id'     => 0
+        // ]);
 
         Wallet::factory()->create([
             'name'      => 'Cash Wallet',
@@ -64,20 +64,20 @@ class DatabaseSeeder extends Seeder
             'user_id'   => 0
         ]);
 
-        Transaction::factory()->create([
-            'user_id'     => 0,
-            'wallet_id'   => 1,
-            'category_id' => 1,
-            'amount'      => 50000,
-            'description' => 'Sample transaction for seeding'
-        ]);
+        // Transaction::factory()->create([
+        //     'user_id'     => 0,
+        //     'wallet_id'   => 1,
+        //     'category_id' => 1,
+        //     'amount'      => 50000,
+        //     'description' => 'Sample transaction for seeding'
+        // ]);
 
-        Transaction::factory()->create([
-            'user_id'     => 0,
-            'wallet_id'   => 1,
-            'category_id' => 2,
-            'amount'      => 100000,
-            'description' => 'Sample transaction for seeding 2'
-        ]);
+        // Transaction::factory()->create([
+        //     'user_id'     => 0,
+        //     'wallet_id'   => 1,
+        //     'category_id' => 2,
+        //     'amount'      => 100000,
+        //     'description' => 'Sample transaction for seeding 2'
+        // ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Category;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
@@ -17,6 +18,32 @@ class AuthController extends Controller
         $user_registed = User::create($data);
         $token = $user_registed->createToken($data['email']);
         $user_registed->token = $token->plainTextToken;
+
+        $category_registed = [
+            [
+                'name'        => 'Makanan',
+                'description' => 'Pengeluaran untuk makanan',
+                'budget'      => null,
+                'type'        => 'Pengeluaran',
+                'user_id'     => $user_registed->id
+            ],
+            [
+                'name'        => 'Gaji',
+                'description' => 'Pemasukan dari gaji',
+                'budget'      => null,
+                'type'        => 'Pemasukan',
+                'user_id'     => $user_registed->id
+            ],
+            [
+                'name'        => 'Belanja',
+                'description' => 'Pengeluaran untuk belanja',
+                'budget'      => null,
+                'type'        => 'Pengeluaran',
+                'user_id'     => $user_registed->id
+            ]
+        ];
+
+        Category::insert($category_registed);
 
         return response()->json([
             'status'  => 'success',

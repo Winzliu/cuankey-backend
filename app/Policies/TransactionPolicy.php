@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\Response;
 
 class TransactionPolicy
 {
-    public function private(User $user, transaction $transaction): bool
+    public function private(User $user, Transaction $transaction): bool
     {
         return $user->id === $transaction->user_id;
     }
