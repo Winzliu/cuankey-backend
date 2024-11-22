@@ -16,6 +16,7 @@ class WalletFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'initial_balance' => $this->faker->randomFloat(3, 0.01, 10000), 
             'is_active' => true,
             'user_id' => 0
         ];

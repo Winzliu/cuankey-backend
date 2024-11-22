@@ -10,28 +10,23 @@ use Illuminate\Support\Facades\Gate;
 
 class WalletController extends Controller
 {
+    private function walletQuery()
+    {
+        return Wallet::with(['transactions.category'])
+            ->withSum(['transactions as total_income' => function ($query) {
+                $query->whereHas('category', fn($q) => $q->where('type', 'Pemasukan'));
+            }], 'amount')
+            ->withSum(['transactions as total_outcome' => function ($query) {
+                $query->whereHas('category', fn($q) => $q->where('type', 'Pengeluaran'));
+            }], 'amount');
+    }
+
+
     public function getWallet(Request $request)
     {
-        $wallets = Wallet::where('user_id', [$request->user()->id, 0])
-        ->withSum(['transaction as total_income' => function ($query) {
-            $query->whereHas('category', function ($categoryQuery) {
-                $categoryQuery->where('type', 'Pemasukan');
-            });
-        }], 'amount')
-        ->withSum(['transaction as total_expenses' => function ($query) {
-            $query->whereHas('category', function ($categoryQuery) {
-                $categoryQuery->where('type', 'Pengeluaran');
-            });
-        }], 'amount')
-        ->get()
-        ->map(function ($wallet) {
-            $total_income = $wallet->total_income ?? 0;
-            $total_expenses = $wallet->total_expenses ?? 0;
-
-            $wallet->total_balance = $total_income - $total_expenses;
-
-            return $wallet;
-        });
+        $wallets = $this->walletQuery()
+            ->whereIn('user_id', [$request->user()->id, 0])
+            ->get();
 
         return response()->json([
             'status'  => 'success',
@@ -43,7 +38,11 @@ class WalletController extends Controller
     
     public function getWalletById($id)
     {
-        $wallet = Wallet::find($id);
+        $wallet = $this->walletQuery()->find($id);
+
+        if ($wallet) {
+            $wallet->total_balance = ($wallet->initial_balance ?? 0) + ($wallet->total_income ?? 0) - ($wallet->total_outcome ?? 0);
+        }
 
         if (!$wallet) {
             return response()->json([

@@ -52,12 +52,14 @@ class DatabaseSeeder extends Seeder
 
         Wallet::factory()->create([
             'name'      => 'Cash Wallet',
+            'initial_balance' => 100000 ,
             'is_active' => true,
             'user_id'   => 0
         ]);
 
         Wallet::factory()->create([
             'name'      => 'Credit Card Wallet',
+            'initial_balance' => 50000 ,
             'is_active' => false,
             'user_id'   => 0
         ]);
