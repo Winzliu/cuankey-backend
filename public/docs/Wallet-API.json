@@ -939,6 +939,180 @@
                 }
             }
         },
+        "/wallet/total": {
+            "get": {
+                "tags": ["Wallet"],
+                "summary": "Get All Wallet Total Balance",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success All Wallet Total Balance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "total_balance":{
+                                                            "type": "integer"
+                                                        },
+                                                        "user": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Get All Wallet Total Balance",
+                                        "value": {
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Get All Wallet Total Balance Successfully",
+                                                "data": 
+                                                    {
+                                                        "id": 1,
+                                                        "total_balance": 5000000,
+                                                        "user": {
+                                                            "fullname": "John Doe",
+                                                            "phone_number": "08123456789",
+                                                            "email": "aGxYs@example.com"
+                                                        }
+                                                    }
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/wallet/switch/{id}": {
             "put": {
                 "tags": ["Wallet"],

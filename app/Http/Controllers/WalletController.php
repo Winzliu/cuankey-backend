@@ -68,6 +68,31 @@ class WalletController extends Controller
         ], 200);
     }
 
+    public function getAllWalletTotalBalance(Request $request)
+    {
+        $wallets = $this->walletQuery()
+        ->whereIn('user_id', [$request->user()->id, 0])
+        ->get();
+
+        $walletResources = WalletResource::collection($wallets)->toArray($request);
+
+        $totalBalance = array_sum(array_column($walletResources, 'total_balance'));
+
+        return response()->json([
+            'status'  => 'success',
+            'code'    => 200,
+            'message' => 'Get All Wallet Total Balance Successfully',
+            'data'    => [
+                'total_balance' => $totalBalance,
+                'user'          => [
+                    'fullname'     => $request->user()->fullname,
+                    'phone_number' => $request->user()->phone_number,
+                    'email'        => $request->user()->email,
+                ],
+            ]
+        ], 200);
+    }
+
     public function createWallet(WalletRequest $request)
     {
         $data = $request->validated();
