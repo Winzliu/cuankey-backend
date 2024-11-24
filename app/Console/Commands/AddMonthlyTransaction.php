@@ -31,11 +31,12 @@ class AddMonthlyTransaction extends Command
         Recurring::all()->map(function ($recurring) {
             if ($recurring->is_active == true) {
                 Transaction::create([
-                    'user_id'     => $recurring->user_id,
-                    'wallet_id'   => $recurring->wallet_id,
-                    'category_id' => $recurring->category_id,
-                    'amount'      => $recurring->amount,
-                    'description' => $recurring->description,
+                    'user_id'          => $recurring->user_id,
+                    'wallet_id'        => $recurring->wallet_id,
+                    'category_id'      => $recurring->category_id,
+                    'amount'           => $recurring->amount,
+                    'transaction_date' => Carbon::create(date('Y'), date('m'), 1)->format('d F Y'),
+                    'description'      => $recurring->description,
                 ]);
             }
         });

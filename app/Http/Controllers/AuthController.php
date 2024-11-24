@@ -7,6 +7,8 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Wallet;
+use DB;
 use Hash;
 use Illuminate\Http\Request;
 
@@ -14,43 +16,76 @@ class AuthController extends Controller
 {
     public function register(UserRegisterRequest $request)
     {
-        $data = $request->validated();
-        $user_registed = User::create($data);
-        $token = $user_registed->createToken($data['email']);
-        $user_registed->token = $token->plainTextToken;
+        DB::beginTransaction();
 
-        $category_registed = [
-            [
-                'name'        => 'Makanan',
-                'description' => 'Pengeluaran untuk makanan',
-                'budget'      => null,
-                'type'        => 'Pengeluaran',
-                'user_id'     => $user_registed->id
-            ],
-            [
-                'name'        => 'Gaji',
-                'description' => 'Pemasukan dari gaji',
-                'budget'      => null,
-                'type'        => 'Pemasukan',
-                'user_id'     => $user_registed->id
-            ],
-            [
-                'name'        => 'Belanja',
-                'description' => 'Pengeluaran untuk belanja',
-                'budget'      => null,
-                'type'        => 'Pengeluaran',
-                'user_id'     => $user_registed->id
-            ]
-        ];
+        try {
+            $data = $request->validated();
+            $user_registed = User::create($data);
+            $token = $user_registed->createToken($data['email']);
+            $user_registed->token = $token->plainTextToken;
 
-        Category::insert($category_registed);
+            $category_registed = [
+                [
+                    'name'        => 'Makanan',
+                    'description' => 'Pengeluaran untuk makanan',
+                    'budget'      => null,
+                    'type'        => 'Pengeluaran',
+                    'user_id'     => $user_registed->id
+                ],
+                [
+                    'name'        => 'Gaji',
+                    'description' => 'Pemasukan dari gaji',
+                    'budget'      => null,
+                    'type'        => 'Pemasukan',
+                    'user_id'     => $user_registed->id
+                ],
+                [
+                    'name'        => 'Belanja',
+                    'description' => 'Pengeluaran untuk belanja',
+                    'budget'      => null,
+                    'type'        => 'Pengeluaran',
+                    'user_id'     => $user_registed->id
+                ]
+            ];
 
-        return response()->json([
-            'status'  => 'success',
-            'code'    => 200,
-            'message' => 'Register success',
-            'data'    => new UserResource($user_registed)
-        ], 200);
+            Category::insert($category_registed);
+
+            $wallet_registed = [
+                [
+                    "name"            => "Cash Wallet",
+                    "initial_balance" => 0,
+                    "is_active"       => 1,
+                    'user_id'         => $user_registed->id
+                ],
+                [
+                    "name"            => "Bank Wallet",
+                    "initial_balance" => 0,
+                    "is_active"       => 1,
+                    'user_id'         => $user_registed->id
+                ]
+            ];
+
+            Wallet::insert($wallet_registed);
+
+            DB::commit();
+
+            return response()->json([
+                'status'  => 'success',
+                'code'    => 200,
+                'message' => 'Register success',
+                'data'    => new UserResource($user_registed)
+            ], 200);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status'  => 'bad request',
+                'code'    => 400,
+                'message' => 'Input data is not valid',
+                'errors'  => [
+                    'message' => $th->getMessage()
+                ]
+            ]);
+        }
     }
 
     public function login(UserLoginRequest $request)
