@@ -26,22 +26,22 @@ class AuthController extends Controller
 
             $category_registed = [
                 [
-                    'name'        => 'Makanan',
-                    'description' => 'Pengeluaran untuk makanan',
+                    'name'        => 'Food & Beverage',
+                    'description' => 'Cost for food and beverage',
                     'budget'      => null,
                     'type'        => 'Pengeluaran',
                     'user_id'     => $user_registed->id
                 ],
                 [
-                    'name'        => 'Gaji',
-                    'description' => 'Pemasukan dari gaji',
+                    'name'        => 'Salary',
+                    'description' => 'Income from salary',
                     'budget'      => null,
                     'type'        => 'Pemasukan',
                     'user_id'     => $user_registed->id
                 ],
                 [
-                    'name'        => 'Belanja',
-                    'description' => 'Pengeluaran untuk belanja',
+                    'name'        => 'Groceries',
+                    'description' => 'Cost for groceries',
                     'budget'      => null,
                     'type'        => 'Pengeluaran',
                     'user_id'     => $user_registed->id
