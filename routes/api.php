@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::group(['prefix' => 'transaction'], function () {
     Route::post('/', [App\Http\Controllers\TransactionController::class, 'createTransaction']);
     Route::get('/', [App\Http\Controllers\TransactionController::class, 'getTransaction']);
+    Route::get('/monthly', [App\Http\Controllers\TransactionController::class, 'getTransactionPerMonth']);
     Route::get('/{id}', [App\Http\Controllers\TransactionController::class, 'getTransactionById']);
     Route::put('/{id}', [App\Http\Controllers\TransactionController::class, 'updateTransaction']);
     Route::delete('/{id}', [App\Http\Controllers\TransactionController::class, 'deleteTransaction']);

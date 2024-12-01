@@ -16,7 +16,7 @@ class WalletController extends Controller
             ->withSum(['transactions as total_income' => function ($query) {
                 $query->whereHas('category', fn($q) => $q->where('type', 'Pemasukan'));
             }], 'amount')
-            ->withSum(['transactions as total_outcome' => function ($query) {
+            ->withSum(['transactions as total_expense' => function ($query) {
                 $query->whereHas('category', fn($q) => $q->where('type', 'Pengeluaran'));
             }], 'amount');
     }
@@ -41,7 +41,7 @@ class WalletController extends Controller
         $wallet = $this->walletQuery()->find($id);
 
         if ($wallet) {
-            $wallet->total_balance = ($wallet->initial_balance ?? 0) + ($wallet->total_income ?? 0) - ($wallet->total_outcome ?? 0);
+            $wallet->total_balance = ($wallet->initial_balance ?? 0) + ($wallet->total_income ?? 0) - ($wallet->total_expense ?? 0);
         }
 
         if (!$wallet) {

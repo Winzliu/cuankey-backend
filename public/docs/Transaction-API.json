@@ -108,10 +108,10 @@
                                                     {
                                                         "id": 1,
                                                         "wallet": "Cash Wallet",
-                                                        "category": "Makanan",
+                                                        "category": "Food & Beverage",
                                                         "amount": 50000,
                                                         "description": "KFC",
-                                                        "transaction_date": "22 November 2024",
+                                                        "transaction_date": "2024-11-20",
                                                         "user": {
                                                             "fullname": "John Doe",
                                                             "phone_number": "08123456789",
@@ -121,10 +121,10 @@
                                                     {
                                                         "id": 2,
                                                         "wallet": "Cash Wallet",
-                                                        "category": "Makanan",
+                                                        "category": "Food & Beverage",
                                                         "amount": 15000,
                                                         "description": "Nasi Padang",
-                                                        "transaction_date": "22 November 2024",
+                                                        "transaction_date": "2024-11-20",
                                                         "user": {
                                                             "fullname": "John Doe",
                                                             "phone_number": "08123456789",
@@ -272,7 +272,7 @@
                                         "category_id": 2,
                                         "amount": 100000,
                                         "description": "Work",
-                                        "transaction_date": "20 November 2024"
+                                        "transaction_date": "2024-11-20"
                                     }
                                 }
                             }
@@ -353,7 +353,7 @@
                                                 "category": "Gaji",
                                                 "amount": 100000,
                                                 "description": "Work",
-                                                "transaction_date": "20 November 2024",
+                                                "transaction_date": "2024-11-20",
                                                 "user": {
                                                     "fullname": "John Doe",
                                                     "phone_number": "08123456789",
@@ -706,7 +706,7 @@
                                         "category_id": 1,
                                         "amount": 100000,
                                         "description": "Convenience Store",
-                                        "transaction_date": "19 November 2024"
+                                        "transaction_date": "2024-11-20"
                                     }
                                 }
                             }
@@ -883,6 +883,217 @@
                                             "status": "success",
                                             "code": 200,
                                             "message": "Delete Transaction Successfully"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Internal Server Error",
+                                        "value": {
+                                            "status": "error",
+                                            "code": 500,
+                                            "message": "Internal Server Error",
+                                            "errors": {
+                                                "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/monthly": {
+            "get": {
+                "tags": ["Transaction"],
+                "summary": "Get Last 5 Month Transaction",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get Last 5 Month Transaction Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "month": {
+                                                            "type": "object"
+                                                        },
+                                                        "total_income": {
+                                                            "type": "number"
+                                                        },
+                                                        "total_expense": {
+                                                            "type": "number"
+                                                        }
+                                                    }
+                                                },
+                                                "user": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "fullname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "phone_number": {
+                                                                    "type": "string"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                },
+                                                "overall_averages": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "average_income": {
+                                                                    "type": "number"
+                                                                },
+                                                                "average_expenses": {
+                                                                    "type": "number"
+                                                                }
+                                                            }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Get Last 5 Month Transaction Successfully",
+                                        "value": {
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Get Last 5 Month Transaction Successfully",
+                                                "data": [
+                                                    {
+                                                        "month": "August 2024",
+                                                        "total_income": 0,
+                                                        "total_expense": 0
+                                                    },
+                                                    {
+                                                        "month": "October 2024",
+                                                        "total_income": 0,
+                                                        "total_expense": 0
+                                                    },
+                                                    {
+                                                        "month": "December 2024",
+                                                        "total_income": 0,
+                                                        "total_expense": 0
+                                                    },
+                                                    {
+                                                        "month": "November 2024",
+                                                        "total_income": 200000,
+                                                        "total_expense": 0
+                                                    }
+                                                ],
+                                                "user": {
+                                                            "fullname": "Julyant Anggara",
+                                                            "phone_number": "081362549889",
+                                                            "email": "julyant.anggara@gmail.com"
+                                                },
+                                                "overall_averages": {
+                                                    "average_income": 50000,
+                                                    "average_expenses": 10000
+                                                }
+                                            }
                                         }
                                     }
                                 }

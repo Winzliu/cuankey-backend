@@ -19,8 +19,8 @@ class WalletResource extends JsonResource
             'name'              => $this->name,
             'initial_balance'   => $this->initial_balance,
             'total_income'      => $this->total_income ?? 0,
-            'total_outcome'     => $this->total_outcome ?? 0,
-            'total_balance'     => $this->total_balance ?? (($this->initial_balance ?? 0) + ($this->total_income ?? 0) - ($this->total_outcome ?? 0)),
+            'total_expense'     => $this->total_expense ?? 0,
+            'total_balance'     => $this->total_balance ?? (($this->initial_balance ?? 0) + ($this->total_income ?? 0) - ($this->total_expense ?? 0)),
             'is_active'         => $this->is_active,
             'transactions'      => $this->transactions->map(function ($transaction){
                 return [

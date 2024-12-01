@@ -60,7 +60,7 @@ class AuthController extends Controller
                 [
                     "name"            => "Bank Wallet",
                     "initial_balance" => 0,
-                    "is_active"       => 1,
+                    "is_active"       => 0,
                     'user_id'         => $user_registed->id
                 ]
             ];
