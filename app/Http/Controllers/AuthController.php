@@ -66,6 +66,7 @@ class AuthController extends Controller
             ];
 
             Wallet::insert($wallet_registed);
+            $user_registed->profile_picture = 1;
 
             DB::commit();
 
@@ -140,6 +141,27 @@ class AuthController extends Controller
     }
 
     public function updateUser(Request $request)
+    {
+        $data = $request->validate([
+            "fullname"        => "sometimes|string|max:255|min:3",
+            "phone_number"    => "sometimes|numeric|digits_between: 8,15",
+            "profile_picture" => "sometimes|numeric|in:1,2,3,4,5,6,7,8"
+        ]);
+
+        $request->user()->update($data);
+
+        $user = $request->user();
+        $user->token = null;
+
+        return response()->json([
+            'status'  => 'success',
+            'code'    => 200,
+            'message' => 'Update user success',
+            'data'    => new UserResource($user)
+        ], 200);
+    }
+
+    public function updateUserPassword(Request $request)
     {
         $data = $request->validate([
             "old_password" => "required",

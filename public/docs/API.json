@@ -81,6 +81,9 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
+                                                "profile_picture": {
+                                                    "type": "integer"
+                                                },
                                                 "fullname": {
                                                     "type": "string"
                                                 },
@@ -106,6 +109,7 @@
                                             "message": "Registration Successfully",
                                             "data": {
                                                 "id": "1",
+                                                "profile_picture": "1",
                                                 "fullname": "Julyant Anggara",
                                                 "phone_number": "081362549889",
                                                 "email": "julyant.anggara@gmail.com",
@@ -251,6 +255,9 @@
                                                 "id": {
                                                     "type": "string"
                                                 },
+                                                "profile_picture": {
+                                                    "type": "integer"
+                                                },
                                                 "username": {
                                                     "type": "string"
                                                 },
@@ -273,6 +280,7 @@
                                             "message": "Login success",
                                             "data": {
                                                 "id": "1",
+                                                "profile_picture": "1",
                                                 "username": "Julyant Anggara",
                                                 "email": "julyant.anggara@gmail.com",
                                                 "Token": "12345678"
@@ -495,6 +503,9 @@
                                                         "id": {
                                                             "type": "string"
                                                         },
+                                                        "profile_picture": {
+                                                            "type": "integer"
+                                                        },
                                                         "fullname": {
                                                             "type": "string"
                                                         },
@@ -520,6 +531,7 @@
                                                 "message": "Get Current User Successfully",
                                                 "data": {
                                                     "id": "1",
+                                                    "profile_picture": "1",
                                                     "fullname": "Julyant Anggara",
                                                     "phone_number": "081362549889",
                                                     "email": "julyant.anggara@gmail.com"
@@ -638,11 +650,24 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "old_password": {
+                                    "profile_picture": {
+                                        "type": "integer"
+                                    },
+                                    "fullname": {
                                         "type": "string"
                                     },
-                                    "new_password": {
+                                    "phone_number": {
                                         "type": "string"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "User": {
+                                    "summary": "Example User update",
+                                    "value": {
+                                        "profile_picture": "1",
+                                        "fullname": "Julyant Anggara",
+                                        "phone_number": "081362549889"
                                     }
                                 }
                             }
@@ -668,6 +693,30 @@
                                                 },
                                                 "message": {
                                                     "type": "string"
+                                                },
+                                                "data": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Success": {
+                                        "description": "Success Update User",
+                                        "value": {
+                                            "status": "success",
+                                            "code": 200,
+                                            "message": "Success Update User",
+                                            "data": {
+                                                "status": "success",
+                                                "code": 200,
+                                                "message": "Update user success",
+                                                "data": {
+                                                    "id": "1",
+                                                    "profile_picture": "1",
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889"
                                                 }
                                             }
                                         }
@@ -676,8 +725,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -698,8 +747,8 @@
                                     }
                                 },
                                 "examples": {
-                                    "Errors": {
-                                        "description": "Input data is not valid",
+                                    "Error": {
+                                        "description": "User Not Found",
                                         "value": {
                                             "status": "bad request",
                                             "code": 400,
@@ -707,48 +756,6 @@
                                             "errors": {
                                                 "old_password": "Password field is required",
                                                 "new_password": "Password field is required"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "status": {
-                                                    "type": "string"
-                                                },
-                                                "code": {
-                                                    "type": "integer"
-                                                },
-                                                "message": {
-                                                    "type": "string"
-                                                },
-                                                "errors": {
-                                                    "type": "object"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "examples": {
-                                    "Error": {
-                                        "description": "Unauthorized",
-                                        "value": {
-                                            "status": "unauthorized",
-                                            "code": 401,
-                                            "message": "Unauthorized",
-                                            "errors": {
-                                                "message": "Unauthorized"
                                             }
                                         }
                                     }
@@ -886,6 +893,154 @@
                                             "message": "Internal Server Error",
                                             "errors": {
                                                 "message": "Internal Server Error"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/password-update": {
+            "put": {
+                "tags": ["User"],
+                "summary": "Update Password Current User",
+                "security": [
+                    {
+                        "UserAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Update User Password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Errors": {
+                                        "description": "Input data is not valid",
+                                        "value": {
+                                            "status": "bad request",
+                                            "code": 400,
+                                            "message": "Input data is not valid",
+                                            "errors": {
+                                                "old_password": "Password field is required",
+                                                "new_password": "Password field is required"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "integer"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "Error": {
+                                        "description": "Unauthorized",
+                                        "value": {
+                                            "status": "unauthorized",
+                                            "code": 401,
+                                            "message": "Unauthorized",
+                                            "errors": {
+                                                "message": "Unauthorized"
                                             }
                                         }
                                     }
@@ -1892,17 +2047,17 @@
                                                             "type": "string"
                                                         },
                                                         "initial_balance": {
-                                                            "type":"integer"
+                                                            "type": "integer"
                                                         },
-                                                        "total_balance":{
+                                                        "total_balance": {
                                                             "type": "integer"
                                                         },
                                                         "is_active": {
                                                             "type": "boolean"
                                                         },
                                                         "user": {
-                                                                "type": "object",
-                                                                "properties": {
+                                                            "type": "object",
+                                                            "properties": {
                                                                 "fullname": {
                                                                     "type": "string"
                                                                 },
@@ -2122,7 +2277,7 @@
                                                             "type": "string"
                                                         },
                                                         "initial_balance": {
-                                                            "type":"integer"
+                                                            "type": "integer"
                                                         },
                                                         "is_active": {
                                                             "type": "boolean"
@@ -2370,11 +2525,11 @@
                                                 "total_balance": 250000,
                                                 "is_active": 1,
                                                 "transactions": {
-                                                            "category": "Makanan",
-                                                            "transaction_type": "Pengeluaran",
-                                                            "date": "22 Nov 2024",
-                                                            "description": "KFC",
-                                                            "amount": 50000
+                                                    "category": "Makanan",
+                                                    "transaction_type": "Pengeluaran",
+                                                    "date": "22 Nov 2024",
+                                                    "description": "KFC",
+                                                    "amount": 50000
                                                 }
                                             }
                                         }
@@ -2809,12 +2964,12 @@
                                                 "data": {
                                                     "type": "object",
                                                     "properties": {
-                                                        "total_balance":{
+                                                        "total_balance": {
                                                             "type": "integer"
                                                         },
                                                         "user": {
-                                                                "type": "object",
-                                                                "properties": {
+                                                            "type": "object",
+                                                            "properties": {
                                                                 "fullname": {
                                                                     "type": "string"
                                                                 },
@@ -2840,17 +2995,15 @@
                                                 "status": "success",
                                                 "code": 200,
                                                 "message": "Get All Wallet Total Balance Successfully",
-                                                "data": 
-                                                    {
-                                                        "id": 1,
-                                                        "total_balance": 5000000,
-                                                        "user": {
-                                                            "fullname": "John Doe",
-                                                            "phone_number": "08123456789",
-                                                            "email": "aGxYs@example.com"
-                                                        }
+                                                "data": {
+                                                    "id": 1,
+                                                    "total_balance": 5000000,
+                                                    "user": {
+                                                        "fullname": "John Doe",
+                                                        "phone_number": "08123456789",
+                                                        "email": "aGxYs@example.com"
                                                     }
-                                                
+                                                }
                                             }
                                         }
                                     }
@@ -3194,7 +3347,6 @@
                                                             "email": "2IgMh@example.com"
                                                         }
                                                     }
-                                                    
                                                 ]
                                             }
                                         }
@@ -3322,7 +3474,7 @@
                                     "description": {
                                         "type": "string"
                                     },
-                                    "transaction_date":{
+                                    "transaction_date": {
                                         "type": "string"
                                     }
                                 }
@@ -3615,7 +3767,7 @@
                                                 "description": {
                                                     "type": "string"
                                                 },
-                                                "transaction_date":{
+                                                "transaction_date": {
                                                     "type": "string"
                                                 }
                                             }
@@ -3758,7 +3910,7 @@
                                     "category_id": { "type": "integer" },
                                     "amount": { "type": "number" },
                                     "description": { "type": "string" },
-                                    "transaction_date": { "type": "string"}
+                                    "transaction_date": { "type": "string" }
                                 }
                             },
                             "examples": {
@@ -4089,29 +4241,29 @@
                                                     }
                                                 },
                                                 "user": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "fullname": {
-                                                                    "type": "string"
-                                                                },
-                                                                "phone_number": {
-                                                                    "type": "string"
-                                                                },
-                                                                "email": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "fullname": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
                                                 },
                                                 "overall_averages": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "average_income": {
-                                                                    "type": "number"
-                                                                },
-                                                                "average_expenses": {
-                                                                    "type": "number"
-                                                                }
-                                                            }
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "average_income": {
+                                                            "type": "number"
+                                                        },
+                                                        "average_expenses": {
+                                                            "type": "number"
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -4148,9 +4300,9 @@
                                                     }
                                                 ],
                                                 "user": {
-                                                            "fullname": "Julyant Anggara",
-                                                            "phone_number": "081362549889",
-                                                            "email": "julyant.anggara@gmail.com"
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889",
+                                                    "email": "julyant.anggara@gmail.com"
                                                 },
                                                 "overall_averages": {
                                                     "average_income": 50000,

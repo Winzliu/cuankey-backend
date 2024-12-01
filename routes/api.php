@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
   Route::group(['prefix' => 'user'], function () {
     Route::get('/', [AuthController::class, 'getUser']);
     Route::put('/', [AuthController::class, 'updateUser']);
+    Route::put('/password-update', [AuthController::class, 'updateUserPassword']);
     Route::delete('/', [AuthController::class, 'deleteUser']);
   });
 

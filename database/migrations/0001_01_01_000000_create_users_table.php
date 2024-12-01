@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->enum('profile_picture', [1, 2, 3, 4, 5, 6, 7, 8])->default(1);
             $table->string('fullname');
             $table->string('phone_number');
             $table->string('email')->unique();
