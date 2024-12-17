@@ -3278,10 +3278,41 @@
                                                             "type": "string"
                                                         },
                                                         "wallet": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "initial_balance": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "total_income": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "total_expense": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "is_active": {
+                                                                    "type": "integer"
+                                                                }
+                                                            }
                                                         },
                                                         "category": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
+                                                                "budget": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         },
                                                         "amount": {
                                                             "type": "number"
@@ -3323,23 +3354,22 @@
                                                 "data": [
                                                     {
                                                         "id": 1,
-                                                        "wallet": "Cash Wallet",
-                                                        "category": "Food & Beverage",
+                                                        "wallet": {
+                                                            "name": "Cash Wallet",
+                                                            "initial_balance": 100000,
+                                                            "total_income": 200000,
+                                                            "total_expense": 50000,
+                                                            "total_balance": 250000,
+                                                            "is_active": 1
+                                                        },
+                                                        "category": {
+                                                            "name": "Food & Beverage",
+                                                            "description": "Food & Beverage",
+                                                            "budget": 100000,
+                                                            "type": "Expense"
+                                                        },
                                                         "amount": 50000,
                                                         "description": "KFC",
-                                                        "transaction_date": "2024-11-20",
-                                                        "user": {
-                                                            "fullname": "John Doe",
-                                                            "phone_number": "08123456789",
-                                                            "email": "2IgMh@example.com"
-                                                        }
-                                                    },
-                                                    {
-                                                        "id": 2,
-                                                        "wallet": "Cash Wallet",
-                                                        "category": "Food & Beverage",
-                                                        "amount": 15000,
-                                                        "description": "Nasi Padang",
                                                         "transaction_date": "2024-11-20",
                                                         "user": {
                                                             "fullname": "John Doe",
@@ -3756,10 +3786,41 @@
                                                     "type": "string"
                                                 },
                                                 "wallet": {
-                                                    "type": "string"
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "initial_balance": {
+                                                            "type": "integer"
+                                                        },
+                                                        "total_income": {
+                                                            "type": "integer"
+                                                        },
+                                                        "total_expense": {
+                                                            "type": "integer"
+                                                        },
+                                                        "is_active": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
                                                 },
                                                 "category": {
-                                                    "type": "string"
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "description": {
+                                                            "type": "string"
+                                                        },
+                                                        "budget": {
+                                                            "type": "integer"
+                                                        },
+                                                        "type": {
+                                                            "type": "string"
+                                                        }
+                                                    }
                                                 },
                                                 "amount": {
                                                     "type": "integer"
@@ -3769,6 +3830,20 @@
                                                 },
                                                 "transaction_date": {
                                                     "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "fullname": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -3783,11 +3858,27 @@
                                             "message": "Success get transaction",
                                             "data": {
                                                 "id": 2,
-                                                "user_id": 0,
-                                                "wallet_id": 2,
-                                                "category_id": 1,
+                                                "wallet": {
+                                                    "name": "Cash Wallet",
+                                                    "initial_balance": 100000,
+                                                    "total_income": 200000,
+                                                    "total_expense": 50000,
+                                                    "total_balance": 250000,
+                                                    "is_active": 1
+                                                },
+                                                "category": {
+                                                    "name": "Food & Beverage",
+                                                    "description": "Food & Beverage",
+                                                    "budget": 100000,
+                                                    "type": "Expense"
+                                                },
                                                 "amount": 100000,
-                                                "description": "Convenience Store"
+                                                "description": "Convenience Store",
+                                                "user": {
+                                                    "fullname": "John Doe",
+                                                    "phone_number": "08123456789",
+                                                    "email": "2IgMh@example.com"
+                                                }
                                             }
                                         }
                                     }
