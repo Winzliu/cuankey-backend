@@ -27,6 +27,7 @@ class AuthController extends Controller
             $category_registed = [
                 [
                     'name'        => 'Food & Beverage',
+                    'icon'        => '🍕',
                     'description' => 'Cost for food and beverage',
                     'budget'      => null,
                     'type'        => 'Pengeluaran',
@@ -34,6 +35,7 @@ class AuthController extends Controller
                 ],
                 [
                     'name'        => 'Salary',
+                    'icon'        => '💰',
                     'description' => 'Income from salary',
                     'budget'      => null,
                     'type'        => 'Pemasukan',
@@ -41,6 +43,7 @@ class AuthController extends Controller
                 ],
                 [
                     'name'        => 'Groceries',
+                    'icon'        => '🛒',
                     'description' => 'Cost for groceries',
                     'budget'      => null,
                     'type'        => 'Pengeluaran',

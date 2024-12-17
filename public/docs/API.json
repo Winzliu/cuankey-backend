@@ -1102,6 +1102,9 @@
                                                             "name": {
                                                                 "type": "string"
                                                             },
+                                                            "icon": {
+                                                                "type": "string"
+                                                            },
                                                             "description": {
                                                                 "type": "string"
                                                             },
@@ -1144,6 +1147,7 @@
                                                     {
                                                         "id": "1",
                                                         "name": "Makanan",
+                                                        "icon": "🍔",
                                                         "description": "Pengeluaran untuk makanan",
                                                         "budget": 100000,
                                                         "type": "Pengeluaran",
@@ -1156,6 +1160,7 @@
                                                     {
                                                         "id": "2",
                                                         "name": "Gaji",
+                                                        "icon": "💰",
                                                         "description": "Pemasukan dari gaji",
                                                         "budget": null,
                                                         "type": "Pemasukan",
@@ -1283,6 +1288,9 @@
                                     "name": {
                                         "type": "string"
                                     },
+                                    "icon": {
+                                        "type": "string"
+                                    },
                                     "description": {
                                         "type": "string"
                                     },
@@ -1299,6 +1307,7 @@
                                     "description": "Example create Category",
                                     "value": {
                                         "name": "Makanan",
+                                        "icon": "🍔",
                                         "description": "Pengeluaran untuk makanan",
                                         "budget": 100000,
                                         "type": "Pengeluaran"
@@ -1335,6 +1344,9 @@
                                                             "type": "string"
                                                         },
                                                         "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "icon": {
                                                             "type": "string"
                                                         },
                                                         "description": {
@@ -1376,6 +1388,7 @@
                                             "data": {
                                                 "id": "3",
                                                 "name": "Makanan",
+                                                "icon": "🍔",
                                                 "description": "Pengeluaran untuk makanan",
                                                 "budget": 100000,
                                                 "type": "Pengeluaran",

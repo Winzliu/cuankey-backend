@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('icon')->nullable();
             $table->string('description')->nullable();
             $table->integer('budget')->nullable();
             $table->enum('type', ['Pengeluaran', 'Pemasukan']);
