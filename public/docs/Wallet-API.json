@@ -257,7 +257,7 @@
                                 "Wallet": {
                                     "description": "Example create Wallet",
                                     "value": {
-                                        "name": "Bank Wallet",
+                                        "name": "Savings Wallet",
                                         "initial_balance": "50000"
                                     }
                                 }

@@ -25,10 +25,11 @@ class TransactionResource extends JsonResource
                 'is_active'       => $this->wallet->is_active
             ],
             'category'         => [
-                'name'        => $this->category->name,
-                'description' => $this->category->description,
-                'budget'      => $this->category->budget,
-                'type'        => $this->category->type
+                'name'         => $this->category->name,
+                'description'  => $this->category->description,
+                'budget'       => $this->category->budget,
+                'type'         => $this->category->type,
+                'icon'         => $this->category->icon,
             ],
             'amount'           => $this->amount,
             'description'      => $this->description,

@@ -62,10 +62,44 @@
                                                             "type": "string"
                                                         },
                                                         "wallet": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "initial_balance": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "total_income": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "total_expense": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "is_active": {
+                                                                    "type": "integer"
+                                                                }
+                                                            }
                                                         },
                                                         "category": {
-                                                            "type": "string"
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
+                                                                "budget": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "type": {
+                                                                    "type": "string"
+                                                                },
+                                                                "icon" : {
+                                                                    "type": "string"
+                                                                }
+                                                            }
                                                         },
                                                         "amount": {
                                                             "type": "number"
@@ -107,23 +141,23 @@
                                                 "data": [
                                                     {
                                                         "id": 1,
-                                                        "wallet": "Cash Wallet",
-                                                        "category": "Food & Beverage",
+                                                        "wallet": {
+                                                            "name": "Cash Wallet",
+                                                            "initial_balance": 100000,
+                                                            "total_income": 200000,
+                                                            "total_expense": 50000,
+                                                            "total_balance": 250000,
+                                                            "is_active": 1
+                                                        },
+                                                        "category": {
+                                                            "name": "Food & Beverage",
+                                                            "description": "Food & Beverage",
+                                                            "budget": 100000,
+                                                            "type": "Expense",
+                                                            "icon": "🍕"
+                                                        },
                                                         "amount": 50000,
                                                         "description": "KFC",
-                                                        "transaction_date": "2024-11-20",
-                                                        "user": {
-                                                            "fullname": "John Doe",
-                                                            "phone_number": "08123456789",
-                                                            "email": "2IgMh@example.com"
-                                                        }
-                                                    },
-                                                    {
-                                                        "id": 2,
-                                                        "wallet": "Cash Wallet",
-                                                        "category": "Food & Beverage",
-                                                        "amount": 15000,
-                                                        "description": "Nasi Padang",
                                                         "transaction_date": "2024-11-20",
                                                         "user": {
                                                             "fullname": "John Doe",
@@ -1064,23 +1098,28 @@
                                                 "message": "Get Last 5 Month Transaction Successfully",
                                                 "data": [
                                                     {
-                                                        "month": "August 2024",
+                                                        "month": "December 2024",
                                                         "total_income": 0,
+                                                        "total_expense": 50000
+                                                    },
+                                                    {
+                                                        "month": "November 2024",
+                                                        "total_income": 100000,
                                                         "total_expense": 0
                                                     },
                                                     {
                                                         "month": "October 2024",
                                                         "total_income": 0,
-                                                        "total_expense": 0
+                                                        "total_expense": 5000
                                                     },
                                                     {
-                                                        "month": "December 2024",
+                                                        "month": "September 2024",
                                                         "total_income": 0,
                                                         "total_expense": 0
                                                     },
                                                     {
-                                                        "month": "November 2024",
-                                                        "total_income": 200000,
+                                                        "month": "August 2024",
+                                                        "total_income": 0,
                                                         "total_expense": 0
                                                     }
                                                 ],
