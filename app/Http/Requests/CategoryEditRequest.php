@@ -25,6 +25,7 @@ class CategoryEditRequest extends FormRequest
     {
         return [
             'name'        => ['string', 'max:255'],
+            'icon'        => ['nullable', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'budget'      => ['nullable', 'numeric'],
             'type'        => ['string', 'max:255'],
