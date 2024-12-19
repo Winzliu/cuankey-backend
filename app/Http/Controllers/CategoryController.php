@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
+    private function categoryQuery()
+    {
+        return Category::with('transaction')
+            ->withSum('transaction as total_transaction', 'amount')->get();
+    }
+
     public function createCategory(CategoryRequest $request)
     {
         $data = $request->validated();
@@ -41,17 +47,18 @@ class CategoryController extends Controller
 
     public function getCategory(Request $request)
     {
-        $categories = Category::where('user_id', $request->user()->id)->get();
+        $categories = $this->categoryQuery()->where('user_id', $request->user()->id);
 
         return response()->json([
-            'status'  => 'success',
-            'code'    => 200,
-            'message' => 'Get category success',
-            'data'    => CategoryResource::collection($categories)
+            'status'          => 'success',
+            'code'            => 200,
+            'message'         => 'Get category success',
+            'all_transaction' => $categories->sum('total_transaction'),
+            'data'            => CategoryResource::collection($categories),
         ], 200);
     }
 
-    public function getCategoryById(Request $id)
+    public function getCategoryById(Request $request, $id)
     {
         if (Gate::denies('private', category::find($id))) {
             return response()->json([
@@ -61,7 +68,7 @@ class CategoryController extends Controller
             ], 403);
         }
 
-        $category = Category::find($id);
+        $category = $this->categoryQuery()->find($id);
 
         if ($category) {
             return response()->json([

@@ -1526,7 +1526,7 @@
                 }
             }
         },
-        "/Category/{id}": {
+        "/category/{id}": {
             "get": {
                 "tags": ["Category"],
                 "summary": "Get Category by id",
