@@ -3316,6 +3316,9 @@
                                                                 "name": {
                                                                     "type": "string"
                                                                 },
+                                                                "icon": {
+                                                                    "type": "string"
+                                                                },
                                                                 "description": {
                                                                     "type": "string"
                                                                 },
@@ -3377,6 +3380,7 @@
                                                         },
                                                         "category": {
                                                             "name": "Food & Beverage",
+                                                            "icon": "🎀",
                                                             "description": "Food & Beverage",
                                                             "budget": 100000,
                                                             "type": "Expense"
@@ -3824,6 +3828,9 @@
                                                         "name": {
                                                             "type": "string"
                                                         },
+                                                        "icon": {
+                                                            "type": "string"
+                                                        },
                                                         "description": {
                                                             "type": "string"
                                                         },
@@ -3881,6 +3888,7 @@
                                                 },
                                                 "category": {
                                                     "name": "Food & Beverage",
+                                                    "icon": "🎀",
                                                     "description": "Food & Beverage",
                                                     "budget": 100000,
                                                     "type": "Expense"
