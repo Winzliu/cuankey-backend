@@ -1634,6 +1634,7 @@
                                             "data": {
                                                 "id": "1",
                                                 "name": "Makanan",
+                                                "icon": "🍔",
                                                 "description": "Makanan",
                                                 "budget": 100000,
                                                 "type": "Pengeluaran",
@@ -1765,6 +1766,9 @@
                                     "name": {
                                         "type": "string"
                                     },
+                                    "icon": {
+                                        "type": "string"
+                                    },
                                     "description": {
                                         "type": "string"
                                     },
@@ -1781,6 +1785,7 @@
                                     "description": "Example update category",
                                     "value": {
                                         "name": "Makanan",
+                                        "icon": "🍔",
                                         "description": "Makanan",
                                         "budget": 100000,
                                         "type": "Pengeluaran"
@@ -1814,6 +1819,9 @@
                                                     "type": "string"
                                                 },
                                                 "name": {
+                                                    "type": "string"
+                                                },
+                                                "icon": {
                                                     "type": "string"
                                                 },
                                                 "description": {
