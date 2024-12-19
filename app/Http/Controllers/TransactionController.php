@@ -7,6 +7,7 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DB;
 use Illuminate\Support\Facades\Gate;
 
@@ -27,12 +28,12 @@ class TransactionController extends Controller
     public function getTransactionPerMonth(Request $request)
     {
         $currentDate = Carbon::now();
-        $startDate = $currentDate->copy()->subMonths(5)->startOfMonth(); 
-        $endDate = $currentDate->endOfMonth(); 
+        $startDate = $currentDate->copy()->subMonths(4)->startOfMonth();
+        $endDate = $currentDate->endOfMonth();
 
         $transactions = Transaction::where('user_id', $request->user()->id)
             ->whereBetween('transaction_date', [$startDate, $endDate])
-            ->with('category') 
+            ->with('category')
             ->get();
 
         $monthlyReport = [];
@@ -41,17 +42,20 @@ class TransactionController extends Controller
         $totalExpenseAmount = 0;
         $totalExpenseCount = 0;
 
+        $period = CarbonPeriod::create($startDate, '1 month', $endDate);
+
+        foreach ($period as $date) {
+            $monthKey = $date->format('Y-m');
+            $monthlyReport[$monthKey] = [
+                'month' => $date->format('F Y'),
+                'total_income' => 0,
+                'total_expense' => 0,
+            ];
+        }
+
         foreach ($transactions as $transaction) {
             $monthKey = Carbon::parse($transaction->transaction_date)->format('Y-m');
             $categoryType = $transaction->category->type;
-
-            if (!isset($monthlyReport[$monthKey])) {
-                $monthlyReport[$monthKey] = [
-                    'month' => Carbon::parse($monthKey)->format('F Y'),
-                    'total_income' => 0,
-                    'total_expense' => 0,
-                ];
-            }
 
             if ($categoryType == 'Pemasukan') {
                 $monthlyReport[$monthKey]['total_income'] += $transaction->amount;
