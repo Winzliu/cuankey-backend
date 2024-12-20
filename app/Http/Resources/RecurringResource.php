@@ -14,6 +14,8 @@ class RecurringResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+    // Mengembalikan data transaksi perulangan dalam bentuk array yang sudah diformat.
+
         return [
             'id'          => $this->id,
             'user'        => [

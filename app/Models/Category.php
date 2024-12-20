@@ -17,7 +17,7 @@ class Category extends Model
         'budget',
         'type'
     ];
-
+    // set relasi category dengan tabel lain
     public function user()
     {
         return $this->belongsTo(User::class);

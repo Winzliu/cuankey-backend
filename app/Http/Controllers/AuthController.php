@@ -12,16 +12,53 @@ use DB;
 use Hash;
 use Illuminate\Http\Request;
 
+
+/*
+<!-- 
+ AuthController adalah pengontrol yang mengatur proses otentikasi dan pengelolaan pengguna dalam aplikasi. 
+ Pengontrol ini mencakup fungsi registrasi, login, logout, pembaruan data pengguna, pembaruan kata sandi, 
+ pengambilan data pengguna, dan penghapusan akun pengguna.
+-->
+*/
+
 class AuthController extends Controller
 {
+    /*
+    1. register(UserRegisterRequest $request)
+
+    Deskripsi:
+        Mendaftarkan pengguna baru, membuat token akses, serta mengatur kategori dan dompet awal untuk pengguna tersebut.
+
+    Parameter:
+
+        UserRegisterRequest $request: Objek permintaan yang berisi data registrasi pengguna.
+
+    Proses Utama:
+
+        Memvalidasi data input.
+
+        Membuat data pengguna baru.
+
+        Membuat token akses.
+
+        Menambahkan kategori default (“Food & Beverage”, “Salary”, “Groceries”).
+
+        Menambahkan dompet default (“Cash Wallet” dan “Bank Wallet”).
+
+        Mengembalikan respons berhasil.
+
+    */
     public function register(UserRegisterRequest $request)
     {
+        // Memulai transaksi
         DB::beginTransaction();
 
         try {
             $data = $request->validated();
             $user_registed = User::create($data);
+            // Membuat token berdasarkan form registrasi user bagian email
             $token = $user_registed->createToken($data['email']);
+            // generate token
             $user_registed->token = $token->plainTextToken;
 
             $category_registed = [
@@ -50,7 +87,7 @@ class AuthController extends Controller
                     'user_id'     => $user_registed->id
                 ]
             ];
-
+            // Membuat kategori default saat user registrasi
             Category::insert($category_registed);
 
             $wallet_registed = [
@@ -67,7 +104,7 @@ class AuthController extends Controller
                     'user_id'         => $user_registed->id
                 ]
             ];
-
+            // Membuat wallet default saat user registrasi
             Wallet::insert($wallet_registed);
             $user_registed->profile_picture = 1;
 
@@ -79,6 +116,8 @@ class AuthController extends Controller
                 'message' => 'Register success',
                 'data'    => new UserResource($user_registed)
             ], 200);
+
+            // memberi pesan error jika transaksi gagal
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -92,11 +131,33 @@ class AuthController extends Controller
         }
     }
 
+
+    /*
+        
+    2. login(UserLoginRequest $request)
+
+        Deskripsi:
+            Mengotentikasi pengguna berdasarkan email dan kata sandi.
+
+        Parameter:
+
+            UserLoginRequest $request: Objek permintaan yang berisi kredensial login.
+
+        Proses Utama:
+
+            Memvalidasi data input.
+
+            Mengecek kecocokan kata sandi.
+
+            Membuat token akses jika valid.
+
+            Mengembalikan respons berhasil atau gagal.
+    */
     public function login(UserLoginRequest $request)
     {
         $data = $request->validated();
         $user = User::where('email', $data['email'])->first();
-
+        // Mengecek kredensial user
         if (Hash::check($data['password'], $user->password ?? null)) {
             $token = $user->createToken($data['email']);
             $user->token = $token->plainTextToken;
@@ -119,6 +180,30 @@ class AuthController extends Controller
         ], 400);
     }
 
+    /*
+        
+
+
+3. logout(Request $request)
+
+    Deskripsi:
+        Menghapus semua token akses milik pengguna untuk melakukan logout.
+
+    Parameter:
+
+        Request $request: Objek permintaan.
+
+    Proses Utama:
+
+        Menghapus token akses pengguna saat ini.
+
+        Mengembalikan respons berhasil.
+
+    Respons:
+
+        Status: 200 (Berhasil)
+
+    */
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
@@ -131,6 +216,28 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /*
+        4. getUser(Request $request)
+
+    Deskripsi:
+        Mengambil informasi detail pengguna yang sedang login.
+
+    Parameter:
+
+        Request $request: Objek permintaan.
+
+    Proses Utama:
+
+        Mengambil data pengguna yang sedang login.
+
+        Menyertakan pesan berhasil.
+
+        Mengembalikan respons berhasil.
+
+    Respons:
+
+        Status: 200 (Berhasil)
+    */
     public function getUser(Request $request)
     {
         $request->user()->message = "Get user success";
@@ -143,6 +250,37 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /*
+        5. updateUser(Request $request)
+
+    Deskripsi:
+        Memperbarui data profil pengguna.
+
+    Parameter:
+
+        Request $request: Objek permintaan yang berisi data pembaruan.
+
+    Proses Utama:
+
+        Memvalidasi data input.
+
+        Memperbarui data pengguna.
+
+        Mengembalikan respons berhasil.
+
+    Respons:
+
+        Status: 200 (Berhasil)
+
+    Validasi Input:
+
+        fullname: string, panjang 3-255 karakter.
+
+        phone_number: angka, panjang 8-15 digit.
+
+        profile_picture: angka, nilai di antara 1-8.
+
+    */
     public function updateUser(Request $request)
     {
         $data = $request->validate([
@@ -164,6 +302,39 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /*
+        
+6. updateUserPassword(Request $request)
+
+    Deskripsi:
+        Memperbarui kata sandi pengguna.
+
+    Parameter:
+
+        Request $request: Objek permintaan yang berisi data pembaruan kata sandi.
+
+    Proses Utama:
+
+        Memvalidasi data input.
+
+        Mengecek kesesuaian kata sandi lama.
+
+        Memperbarui kata sandi jika valid.
+
+        Mengembalikan respons berhasil atau gagal.
+
+    Respons:
+
+        Status: 200 (Berhasil)
+
+        Status: 400 (Gagal)
+
+    Validasi Input:
+
+        old_password: wajib.
+
+        new_password: wajib.
+    */
     public function updateUserPassword(Request $request)
     {
         $data = $request->validate([
@@ -193,6 +364,30 @@ class AuthController extends Controller
         ], 400);
     }
 
+    /*
+    7. deleteUser(Request $request)
+
+    Deskripsi:
+        Menghapus akun pengguna yang sedang login.
+
+    Parameter:
+
+        Request $request: Objek permintaan.
+
+    Proses Utama:
+
+        Menghapus token akses pengguna.
+
+        Menghapus data pengguna.
+
+        Mengembalikan respons berhasil.
+
+    Validasi Input
+
+        Semua data yang diterima akan divalidasi menggunakan aturan yang didefinisikan dalam request terkait seperti UserRegisterRequest dan UserLoginRequest.
+
+
+    */
     public function deleteUser(Request $request)
     {
         $request->user()->tokens()->delete();

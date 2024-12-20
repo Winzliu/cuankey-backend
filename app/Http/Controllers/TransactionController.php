@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Gate;
 
 class TransactionController extends Controller
 {
+    /*
+        FUNGSI UNTUK MENGAMBIL SELURUH TRANSAKSI YANG ADA
+    */
     public function getTransaction(Request $request)
     {
+        // mengambil seluruh transaksi berdasarkan user_id
         $transactions = Transaction::whereIn('user_id', [$request->user()->id])->orderBy('transaction_date','desc')->get();
 
+        // memberi pesan sukses
         return response()->json([
             'status'  => 'success',
             'code'    => 200,
@@ -25,17 +30,26 @@ class TransactionController extends Controller
         ], 200);
     }
 
+    /*
+        FUNGSI REPORT BULANAN DAN MENGAMBIL SELURUH TRANSAKSI 
+        SELAMA 5 BULAN TERAKHIR
+    */
     public function getTransactionPerMonth(Request $request)
     {
+        // mengambil tanggal hari ini dan menyesuaikan formatnya dengan carbon
         $currentDate = Carbon::now();
+        // mengambil tanggal awal bulan
         $startDate = $currentDate->copy()->subMonths(4)->startOfMonth();
+        // mengambil tanggal akhir bulan
         $endDate = $currentDate->endOfMonth();
 
+        // mengambil seluruh transaksi berdasarkan user id
         $transactions = Transaction::where('user_id', $request->user()->id)
             ->whereBetween('transaction_date', [$startDate, $endDate])
             ->with('category')
             ->get();
 
+        // inisialisasi keperluan report transaksi bulanan
         $monthlyReport = [];
         $totalIncomeAmount = 0;
         $totalIncomeCount = 0;
@@ -53,6 +67,7 @@ class TransactionController extends Controller
             ];
         }
 
+        // kalkulasi seluruh transaksi yang didapatkan ke dalam pemasukan dan pengeluaran
         foreach ($transactions as $transaction) {
             $monthKey = Carbon::parse($transaction->transaction_date)->format('Y-m');
             $categoryType = $transaction->category->type;
@@ -68,9 +83,11 @@ class TransactionController extends Controller
             }
         }
 
+        // kalkulasi pendapatan dan pengeluaran rata-rata
         $overallIncomeAverage = $totalIncomeCount > 0 ? $totalIncomeAmount / $totalIncomeCount : 0;
         $overallExpenseAverage = $totalExpenseCount > 0 ? $totalExpenseAmount / $totalExpenseCount : 0;
 
+        // mendapatkan hasil report selama 5 bulan terakhir
         for ($i = 0; $i < 5; $i++) {
             $targetDate = $currentDate->copy()->subMonths($i);
             $monthKey = $targetDate->format('Y-m');
@@ -103,12 +120,13 @@ class TransactionController extends Controller
         ], 200);
     }
 
-    
-
+    /*
+        FUNGSI MENDAPATKAN TRANSAKSI BY ID
+    */
     public function getTransactionById($id)
     {
         $transaction = Transaction::find($id);
-
+        // pesan error jika tidak ditemukan
         if (!$transaction) {
             return response()->json([
                 'status'  => 'not found',
@@ -116,7 +134,7 @@ class TransactionController extends Controller
                 'message' => 'Transaction not found'
             ], 404);
         }
-
+        // pesan error jika user tidak memiliki akses
         if (Gate::denies('private', $transaction)) {
             return response()->json([
                 'status'  => 'error',
@@ -124,7 +142,7 @@ class TransactionController extends Controller
                 'message' => 'You can only see your own Transaction.'
             ], 403);
         }
-
+        // pesan berhasil
         return response()->json([
             'status'  => 'success',
             'code'    => 200,
@@ -133,17 +151,22 @@ class TransactionController extends Controller
         ], 200);
     }
 
+    /*
+        FUNGSI MEMBUAT TRANSAKSI
+    */
     public function createTransaction(TransactionRequest $request)
     {
+        // validasi data dan meminta user id
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
+        // mendapatkan seluruh transaksi yang pernah dilakukan berdasarkan user id
         $existingTransaction = Transaction::where('user_id', $data['user_id'])
             ->where('wallet_id', $data['wallet_id'])
             ->where('category_id', $data['category_id'])
             ->where('description', $data['description'])
             ->first();
-
+        // pesan error jika transaksi baru adalah duplikat
         if ($existingTransaction) {
             return response()->json([
                 'status'  => 'bad request',
@@ -154,9 +177,9 @@ class TransactionController extends Controller
                 ]
             ], 400);
         }
-
+        // membuat transaksi baru
         $transaction = Transaction::create($data);
-
+        // pesan berhasil
         return response()->json([
             'status'  => 'success',
             'code'    => 200,
@@ -165,8 +188,12 @@ class TransactionController extends Controller
         ]);
     }
 
+    /*
+        FUNGSI UPDATE TRANSAKSI
+    */
     public function updateTransaction(TransactionRequest $request, $id)
     {
+        // cek apakah user memiliki hak akses untuk update transaksi
         if (Gate::denies('private', Transaction::find($id))) {
             return response()->json([
                 'status'  => 'error',
@@ -175,10 +202,13 @@ class TransactionController extends Controller
             ], 403);
         }
 
+        // validasi data
         $data = $request->validated();
 
+        // Mencari transaksi yang ingin diperbarui
         $Transaction = Transaction::find($id);
         if ($Transaction) {
+            // mengupdate transaksi
             $Transaction->update($data);
             return response()->json([
                 'status'  => 'success',
@@ -187,7 +217,7 @@ class TransactionController extends Controller
                 'data'    => new TransactionResource($Transaction)
             ]);
         }
-
+        // pesan error jika tidak ditemukan
         return response([
             'status'  => 'not found',
             'code'    => 404,
@@ -195,9 +225,12 @@ class TransactionController extends Controller
         ], 404);
     }
 
-
+    /*
+        FUNGSI MENGHAPUS TRANSAKSI
+    */
     public function deleteTransaction($id)
     {
+        // cek apakah user memiliki akses untuk menghapus transaksi
         if (Gate::denies('private', Transaction::find($id))) {
             return response()->json([
                 'status'  => 'error',
@@ -206,8 +239,10 @@ class TransactionController extends Controller
             ], 403);
         }
 
+        // mencari transaksi berdasarkan ID
         $Transaction = Transaction::find($id);
         if ($Transaction) {
+            // menghapus transaksi
             $Transaction->delete();
             return response()->json([
                 'status'  => 'success',
@@ -216,6 +251,7 @@ class TransactionController extends Controller
             ]);
         }
 
+        // pesan error jika tidak ditemukan
         return response([
             'status'  => 'not found',
             'code'    => 404,
