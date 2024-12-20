@@ -12,8 +12,13 @@ class CategoryResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    /*
+        FUNGSI UNTUK MENGEMBALIKAN ARRAY KATEGORI
+    */
     public function toArray(Request $request): array
     {
+    // Mengembalikan data kategori dalam bentuk array yang sudah diformat.
+
         return [
             'id'                => $this->id,
             'name'              => $this->name,

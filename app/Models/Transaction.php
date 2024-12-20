@@ -17,7 +17,7 @@ class Transaction extends Model
         'description',
         'transaction_date'
     ];
-
+    // set relasi transaksi dengan tabel lain
     public function user()
     {
         return $this->belongsTo(User::class);

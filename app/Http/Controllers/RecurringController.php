@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Gate;
 
 class RecurringController extends Controller
 {
+    /*
+        FUNGSI FITUR PERULANGAN TRANSAKSI OLEH USER
+    */
     public function getRecurring(Request $request)
     {
+        // Mendapatkan seluruh transaksi / keuangan perulangan otomatis sesuai user id
         $recurring = Recurring::whereIn('user_id', [$request->user()->id])->get();
 
         return response()->json([
@@ -24,8 +28,9 @@ class RecurringController extends Controller
 
     public function getRecurringById($id)
     {
+        // Cari transaksi perulangan berdasarkan ID
         $recurring = Recurring::find($id);
-
+        // Kembalikan pesan jika transaksi tidak ditemukan
         if (!$recurring) {
             return response()->json([
                 'status'  => 'not found',
@@ -33,7 +38,7 @@ class RecurringController extends Controller
                 'message' => 'Recurring not found'
             ], 404);
         }
-
+        // cek user apakah memiliki akses untuk ke recurring
         if (Gate::denies('private', $recurring)) {
             return response()->json([
                 'status'  => 'error',
@@ -50,17 +55,23 @@ class RecurringController extends Controller
         ], 200);
     }
 
+    /*
+        FUNGSI UNTUK FITUR MENAMBAHKAN RECURRING
+    */
     public function createRecurring(RecurringRequest $request)
     {
+        // ambil data yang telah divalidasi
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
+        // periksa apakah transaksi perulangan serupa sudah ada untuk user ini
         $existingRecurring = Recurring::where('user_id', $data['user_id'])
             ->where('wallet_id', $data['wallet_id'])
             ->where('category_id', $data['category_id'])
             ->where('description', $data['description'])
             ->first();
 
+        // Jika iya akan diberi pesan error duplikat
         if ($existingRecurring) {
             return response()->json([
                 'status'  => 'bad request',
@@ -72,6 +83,7 @@ class RecurringController extends Controller
             ], 400);
         }
 
+        // Buat transaksi baru
         $recurring = Recurring::create($data);
 
         return response()->json([
@@ -82,8 +94,12 @@ class RecurringController extends Controller
         ]);
     }
 
+    /*
+            FUNGSI UPDATE FITUR RECURRING
+    */
     public function updateRecurring(RecurringRequest $request, $id)
     {
+        // Cek apakah user memiliki akses
         if (Gate::denies('private', Recurring::find($id))) {
             return response()->json([
                 'status'  => 'error',
@@ -92,10 +108,13 @@ class RecurringController extends Controller
             ], 403);
         }
 
+        // Validasi data yang dipilih
         $data = $request->validated();
 
+        // Mencari Recurring ID di database untuk diupdate
         $recurring = Recurring::find($id);
         if ($recurring) {
+            // mengupdate recurring
             $recurring->update($data);
             return response()->json([
                 'status'  => 'success',
@@ -105,15 +124,19 @@ class RecurringController extends Controller
             ]);
         }
 
+        // memberi pesan error jika tidak ditemukan
         return response([
             'status'  => 'not found',
             'code'    => 404,
             'message' => 'Transaction not found'
         ], 404);
     }
-
+    /*
+        FUNGSI DELETE RECURRING
+    */
     public function deleteRecurring($id)
     {
+        // Cek apakah user memiliki akses untuk mencari recurring berdasarkan policies
         if (Gate::denies('private', Recurring::find($id))) {
             return response()->json([
                 'status'  => 'error',
@@ -122,8 +145,10 @@ class RecurringController extends Controller
             ], 403);
         }
 
+        // mencari recurring by id
         $Recurring = Recurring::find($id);
         if ($Recurring) {
+            // delete recurring atau transaksi perulangan
             $Recurring->delete();
             return response()->json([
                 'status'  => 'success',
@@ -131,7 +156,7 @@ class RecurringController extends Controller
                 'message' => 'Delete Recurring Transaction success'
             ]);
         }
-
+        // memberi pesan error jika gagal
         return response([
             'status'  => 'not found',
             'code'    => 404,

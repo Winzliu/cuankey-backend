@@ -15,6 +15,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
+// middleware dengan autorisasi menggunakan laravel sanctum untuk memastikan akses yang sah
 Route::group(['middleware' => 'auth:sanctum'], function () {
   // Authentication
   Route::post('/logout', [AuthController::class, 'logout']);

@@ -23,6 +23,7 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        // aturan validasi terhadap form category
         return [
             'name'        => ['required', 'string', 'max:255'],
             'icon'        => ['nullable', 'string', 'max:255'],
@@ -32,6 +33,7 @@ class CategoryRequest extends FormRequest
         ];
     }
 
+    // melempatan exception jika validasi gagal, dengan detail kesalahan
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response([

@@ -11,6 +11,7 @@ class Wallet extends Model
 
     protected $fillable = ['user_id', 'name', 'is_active','initial_balance'];
 
+    // set relasi tabel wallet dengan tabel lain
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -14,6 +14,8 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+     // Mengembalikan data user dalam bentuk array yang sudah diformat.
+
         return [
             'id'              => $this->id,
             'profile_picture' => $this->profile_picture,
