@@ -97,6 +97,7 @@ class WalletController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
+        $data['initial_balance'] = $data['initial_balance'] ?? 0;
 
         $wallet = Wallet::where('user_id', $data['user_id'])->where('name', $data['name'])->first();
 

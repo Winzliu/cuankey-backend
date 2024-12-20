@@ -15,7 +15,7 @@ class TransactionController extends Controller
 {
     public function getTransaction(Request $request)
     {
-        $transactions = Transaction::whereIn('user_id', [$request->user()->id])->orderBy('transaction_date','desc')->get();
+        $transactions = Transaction::whereIn('user_id', [$request->user()->id])->orderBy('transaction_date','desc')->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status'  => 'success',

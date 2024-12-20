@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class WalletResource extends JsonResource
 {
@@ -22,6 +23,7 @@ class WalletResource extends JsonResource
             'total_expense'     => $this->total_expense ?? 0,
             'total_balance'     => $this->total_balance ?? (($this->initial_balance ?? 0) + ($this->total_income ?? 0) - ($this->total_expense ?? 0)),
             'is_active'         => $this->is_active,
+            'created_at'        => Carbon::parse($this->created_at)->format('d/m/Y'),
             'transactions'      => $this->transactions->map(function ($transaction){
                 return [
                     'category'              => $transaction->category->name,
