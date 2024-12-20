@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     private function categoryQuery()
     {
-        return Category::with('transaction')
+        return Category::with('transaction.user')
             ->withSum('transaction as total_transaction', 'amount')->get();
     }
 
