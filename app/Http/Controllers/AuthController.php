@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Wallet;
+use Carbon\Carbon;
 use DB;
 use Hash;
 use Illuminate\Http\Request;
@@ -60,6 +61,7 @@ class AuthController extends Controller
             $token = $user_registed->createToken($data['email']);
             // generate token
             $user_registed->token = $token->plainTextToken;
+            $currentTimestamp = Carbon::now();
 
             $category_registed = [
                 [
@@ -95,13 +97,17 @@ class AuthController extends Controller
                     "name"            => "Cash Wallet",
                     "initial_balance" => 0,
                     "is_active"       => 1,
-                    'user_id'         => $user_registed->id
+                    'user_id'         => $user_registed->id,
+                    'created_at'      => $currentTimestamp,
+                    'updated_at'      => $currentTimestamp,
                 ],
                 [
                     "name"            => "Bank Wallet",
                     "initial_balance" => 0,
                     "is_active"       => 0,
-                    'user_id'         => $user_registed->id
+                    'user_id'         => $user_registed->id,
+                    'created_at'      => $currentTimestamp,
+                    'updated_at'      => $currentTimestamp,
                 ]
             ];
             // Membuat wallet default saat user registrasi

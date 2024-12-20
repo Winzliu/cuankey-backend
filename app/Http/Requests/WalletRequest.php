@@ -28,7 +28,7 @@ class WalletRequest extends FormRequest
         if ($this->isMethod('post')) {
             return [
                 'name' => 'required|string|max:255',
-                'initial_balance' => 'required|numeric|min:0.01'
+                'initial_balance' => 'nullable|numeric|min:0'
             ];
         }
 
@@ -36,7 +36,7 @@ class WalletRequest extends FormRequest
         if ($this->isMethod('put')) {
             return [
                 'name' => 'sometimes|string|max:255',
-                'initial_balance' => 'sometimes|numeric|min:0.01'
+                'initial_balance' => 'sometimes|numeric|min:0'
             ];
         }
     }
