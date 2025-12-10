@@ -15,6 +15,8 @@ class WalletResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // Mengembalikan data wallet dalam bentuk array yang sudah diformat.
+
         return [
             'id'                => $this->id,
             'name'              => $this->name,

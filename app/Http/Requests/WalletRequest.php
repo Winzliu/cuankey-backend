@@ -13,6 +13,7 @@ class WalletRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // memastikan bahwa pengguna yang membuat permintaan ini sudah login
         return $this->user() != null;
     }
 
@@ -23,6 +24,7 @@ class WalletRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Untuk wallet baru
         if ($this->isMethod('post')) {
             return [
                 'name' => 'required|string|max:255',
@@ -30,6 +32,7 @@ class WalletRequest extends FormRequest
             ];
         }
 
+        // validasi untuk wallet yang sudah ada
         if ($this->isMethod('put')) {
             return [
                 'name' => 'sometimes|string|max:255',

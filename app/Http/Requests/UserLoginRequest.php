@@ -13,6 +13,8 @@ class UserLoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
+         // Diatur ke true karena semua pengguna, terlepas dari status autentikasi mereka,
+        // harus dapat mengakses endpoint login.
         return true;
     }
 
@@ -24,7 +26,10 @@ class UserLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // Field email wajib diisi, harus berupa string dengan format email yang valid,
+            // dan panjang maksimal 255 karakter.
             'email'    => ['required', 'string', 'email', 'max:255'],
+            // Field password wajib diisi, harus berupa string, dan memiliki panjang minimal 8 karakter.
             'password' => ['required', 'string', 'min:8'],
         ];
     }

@@ -13,6 +13,7 @@ class RecurringRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // memastikan bahwa pengguna yang membuat permintaan ini sudah login
         return $this->user() != null;
     }
 
@@ -23,6 +24,7 @@ class RecurringRequest extends FormRequest
      */
     public function rules(): array
     {
+        // untuk recurring baru
         if ($this->isMethod('post')) {
             return [
                 'wallet_id'   => 'required|exists:wallets,id',
@@ -33,6 +35,7 @@ class RecurringRequest extends FormRequest
             ];
         }
 
+        // untuk recurring yang sudah ada
         if ($this->isMethod('put')) {
             return [
                 'wallet_id'   => 'sometimes|exists:wallets,id',
@@ -44,6 +47,7 @@ class RecurringRequest extends FormRequest
         }
     }
 
+    // pesan error validasi yang dilengkapi detail kesalahan
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response([

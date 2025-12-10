@@ -49,6 +49,7 @@ class User extends Authenticatable
         ];
     }
 
+    // set relasi tabel user dengan tabel lain
     public function categories()
     {
         return $this->hasMany(Category::class);

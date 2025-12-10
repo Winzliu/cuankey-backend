@@ -23,6 +23,7 @@ class TransactionRequest extends FormRequest
      */
     public function rules(): array
     {
+        // untuk pembuatan transaksi baru
         if ($this->isMethod('post')) {
             return [
                 'wallet_id'         => 'required|exists:wallets,id',
@@ -33,6 +34,7 @@ class TransactionRequest extends FormRequest
             ];
         }
 
+        // validasi untuk transaksi yang sudah ada
         if ($this->isMethod('put')) {
             return [
                 'wallet_id'         => 'sometimes|exists:wallets,id',
@@ -44,6 +46,7 @@ class TransactionRequest extends FormRequest
         }
     }
 
+    // pesan error validasi
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response([

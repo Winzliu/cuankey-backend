@@ -13,6 +13,7 @@ class CategoryEditRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // memastikan bahwa pengguna yang membuat permintaan ini sudah login
         return $this->user() != null;
     }
 
@@ -23,6 +24,7 @@ class CategoryEditRequest extends FormRequest
      */
     public function rules(): array
     {
+        // aturan validasi terhadap form edit category
         return [
             'name'        => ['string', 'max:255'],
             'icon'        => ['nullable', 'string', 'max:255'],
@@ -32,6 +34,8 @@ class CategoryEditRequest extends FormRequest
         ];
     }
 
+
+    // melempatan exception jika validasi gagal, dengan detail kesalahan
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response([

@@ -8,9 +8,9 @@ This API is designed to support the development of a mobile application for a mo
 - Recurring Transactions: Create transactions that repeat automatically every month, such as subscriptions or recurring bills.
 The API ensures secure data handling with token-based authentication and supports seamless integration into your mobile application.
 ## URL Based
-https://api.julitasuu.site/api/
+https://api.alwinliufandy.my.id/api/
 ## API Docs (Open API)
-https://api.julitasuu.site/docs/
+https://api.alwinliufandy.my.id/docs/
 ## Technologies Used
 This project is built using the following tools and frameworks:
 - Laravel.

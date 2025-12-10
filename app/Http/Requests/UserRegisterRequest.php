@@ -13,6 +13,8 @@ class UserRegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // Diatur ke true karena semua pengguna, terlepas dari status autentikasi mereka,
+        // harus dapat mengakses endpoint register.
         return true;
     }
 
@@ -21,8 +23,11 @@ class UserRegisterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+    //  aturan yang sama terhadap userloginrequest
     public function rules(): array
     {
+        // berisi aturan validasi yang harus dipenuhi untuk registrasi
         return [
             'fullname'              => ['required', 'string', 'max:255'],
             'phone_number'          => ['required', 'numeric', 'digits_between: 8,15'],
