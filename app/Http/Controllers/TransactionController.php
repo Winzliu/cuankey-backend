@@ -15,7 +15,7 @@ class TransactionController extends Controller
 {
     public function getTransaction(Request $request)
     {
-        $transactions = Transaction::whereIn('user_id', [$request->user()->id])->orderBy('transaction_date','desc')->orderBy('created_at', 'desc')->get();
+        $transactions = Transaction::whereIn('user_id', [$request->user()->id])->orderBy('transaction_date', 'desc')->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status'  => 'success',
@@ -47,8 +47,8 @@ class TransactionController extends Controller
         foreach ($period as $date) {
             $monthKey = $date->format('Y-m');
             $monthlyReport[$monthKey] = [
-                'month' => $date->format('F Y'),
-                'total_income' => 0,
+                'month'         => $date->format('F Y'),
+                'total_income'  => 0,
                 'total_expense' => 0,
             ];
         }
@@ -77,7 +77,7 @@ class TransactionController extends Controller
 
             if (!isset($monthlyReport[$monthKey])) {
                 $monthlyReport[$monthKey] = [
-                    'month' => $targetDate->format('F Y'),
+                    'month'         => $targetDate->format('F Y'),
                     'total_income'  => 0,
                     'total_expense' => 0,
                 ];
@@ -87,23 +87,23 @@ class TransactionController extends Controller
         $monthlyReport = array_reverse($monthlyReport);
 
         return response()->json([
-            'status'    => 'success',
-            'code'      => 200,
-            'message'   => 'Last 5 Months Report Retrieved Successfully',
-            'data'      => array_values($monthlyReport),
-            'user'      => [
-                    'fullname'      => $request->user()->fullname,
-                    'phone_number'  => $request->user()->phone_number,
-                    'email'         => $request->user()->email,
-                ],
-            'overall_averages'      => [
-                'average_income'    => $overallIncomeAverage,
-                'average_expense'   => $overallExpenseAverage,
+            'status'           => 'success',
+            'code'             => 200,
+            'message'          => 'Last 5 Months Report Retrieved Successfully',
+            'data'             => array_values($monthlyReport),
+            'user'             => [
+                'fullname'     => $request->user()->fullname,
+                'phone_number' => $request->user()->phone_number,
+                'email'        => $request->user()->email,
+            ],
+            'overall_averages' => [
+                'average_income'  => $overallIncomeAverage,
+                'average_expense' => $overallExpenseAverage,
             ],
         ], 200);
     }
 
-    
+
 
     public function getTransactionById($id)
     {
@@ -138,22 +138,21 @@ class TransactionController extends Controller
         $data = $request->validated();
         $data['user_id'] = $request->user()->id;
 
-        $existingTransaction = Transaction::where('user_id', $data['user_id'])
-            ->where('wallet_id', $data['wallet_id'])
-            ->where('category_id', $data['category_id'])
-            ->where('description', $data['description'])
-            ->first();
+        // $existingTransaction = Transaction::where('user_id', $data['user_id'])
+        //     ->where('wallet_id', $data['wallet_id'])
+        //     ->where('category_id', $data['category_id'])
+        //     ->first();
 
-        if ($existingTransaction) {
-            return response()->json([
-                'status'  => 'bad request',
-                'code'    => 400,
-                'message' => 'Duplicate transaction found for this user',
-                'errors'  => [
-                    'transaction' => 'A transaction with these details already exists for this user.'
-                ]
-            ], 400);
-        }
+        // if ($existingTransaction) {
+        //     return response()->json([
+        //         'status'  => 'bad request',
+        //         'code'    => 400,
+        //         'message' => 'Duplicate transaction found for this user',
+        //         'errors'  => [
+        //             'transaction' => 'A transaction with these details already exists for this user.'
+        //         ]
+        //     ], 400);
+        // }
 
         $transaction = Transaction::create($data);
 
