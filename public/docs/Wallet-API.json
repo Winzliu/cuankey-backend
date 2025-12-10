@@ -11,7 +11,7 @@
     "servers": [
         {
             "description": "Tugas Besar Mobile Development",
-            "url": "http://localhost:8000/api/"
+            "url": "https://api.alwinliufandy.my.id/api/"
         }
     ],
     "paths": {
@@ -65,17 +65,17 @@
                                                             "type": "string"
                                                         },
                                                         "initial_balance": {
-                                                            "type":"integer"
+                                                            "type": "integer"
                                                         },
-                                                        "total_balance":{
+                                                        "total_balance": {
                                                             "type": "integer"
                                                         },
                                                         "is_active": {
                                                             "type": "boolean"
                                                         },
                                                         "user": {
-                                                                "type": "object",
-                                                                "properties": {
+                                                            "type": "object",
+                                                            "properties": {
                                                                 "fullname": {
                                                                     "type": "string"
                                                                 },
@@ -295,7 +295,7 @@
                                                             "type": "string"
                                                         },
                                                         "initial_balance": {
-                                                            "type":"integer"
+                                                            "type": "integer"
                                                         },
                                                         "is_active": {
                                                             "type": "boolean"
@@ -543,11 +543,11 @@
                                                 "total_balance": 250000,
                                                 "is_active": 1,
                                                 "transactions": {
-                                                            "category": "Makanan",
-                                                            "transaction_type": "Pengeluaran",
-                                                            "date": "22 Nov 2024",
-                                                            "description": "KFC",
-                                                            "amount": 50000
+                                                    "category": "Makanan",
+                                                    "transaction_type": "Pengeluaran",
+                                                    "date": "22 Nov 2024",
+                                                    "description": "KFC",
+                                                    "amount": 50000
                                                 }
                                             }
                                         }
@@ -982,12 +982,12 @@
                                                 "data": {
                                                     "type": "object",
                                                     "properties": {
-                                                        "total_balance":{
+                                                        "total_balance": {
                                                             "type": "integer"
                                                         },
                                                         "user": {
-                                                                "type": "object",
-                                                                "properties": {
+                                                            "type": "object",
+                                                            "properties": {
                                                                 "fullname": {
                                                                     "type": "string"
                                                                 },
@@ -1013,17 +1013,15 @@
                                                 "status": "success",
                                                 "code": 200,
                                                 "message": "Get All Wallet Total Balance Successfully",
-                                                "data": 
-                                                    {
-                                                        "id": 1,
-                                                        "total_balance": 5000000,
-                                                        "user": {
-                                                            "fullname": "John Doe",
-                                                            "phone_number": "08123456789",
-                                                            "email": "aGxYs@example.com"
-                                                        }
+                                                "data": {
+                                                    "id": 1,
+                                                    "total_balance": 5000000,
+                                                    "user": {
+                                                        "fullname": "John Doe",
+                                                        "phone_number": "08123456789",
+                                                        "email": "aGxYs@example.com"
                                                     }
-                                                
+                                                }
                                             }
                                         }
                                     }

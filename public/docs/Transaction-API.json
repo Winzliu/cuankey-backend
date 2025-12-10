@@ -11,7 +11,7 @@
     "servers": [
         {
             "description": "Tugas Besar Mobile Development",
-            "url": "http://localhost:8000/api/"
+            "url": "https://api.alwinliufandy.my.id/api/"
         }
     ],
     "paths": {
@@ -96,7 +96,7 @@
                                                                 "type": {
                                                                     "type": "string"
                                                                 },
-                                                                "icon" : {
+                                                                "icon": {
                                                                     "type": "string"
                                                                 }
                                                             }
@@ -165,7 +165,6 @@
                                                             "email": "2IgMh@example.com"
                                                         }
                                                     }
-                                                    
                                                 ]
                                             }
                                         }
@@ -293,7 +292,7 @@
                                     "description": {
                                         "type": "string"
                                     },
-                                    "transaction_date":{
+                                    "transaction_date": {
                                         "type": "string"
                                     }
                                 }
@@ -586,7 +585,7 @@
                                                 "description": {
                                                     "type": "string"
                                                 },
-                                                "transaction_date":{
+                                                "transaction_date": {
                                                     "type": "string"
                                                 }
                                             }
@@ -729,7 +728,7 @@
                                     "category_id": { "type": "integer" },
                                     "amount": { "type": "number" },
                                     "description": { "type": "string" },
-                                    "transaction_date": { "type": "string"}
+                                    "transaction_date": { "type": "string" }
                                 }
                             },
                             "examples": {
@@ -1060,29 +1059,29 @@
                                                     }
                                                 },
                                                 "user": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "fullname": {
-                                                                    "type": "string"
-                                                                },
-                                                                "phone_number": {
-                                                                    "type": "string"
-                                                                },
-                                                                "email": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "fullname": {
+                                                            "type": "string"
+                                                        },
+                                                        "phone_number": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
                                                 },
                                                 "overall_averages": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "average_income": {
-                                                                    "type": "number"
-                                                                },
-                                                                "average_expenses": {
-                                                                    "type": "number"
-                                                                }
-                                                            }
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "average_income": {
+                                                            "type": "number"
+                                                        },
+                                                        "average_expenses": {
+                                                            "type": "number"
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -1124,9 +1123,9 @@
                                                     }
                                                 ],
                                                 "user": {
-                                                            "fullname": "Julyant Anggara",
-                                                            "phone_number": "081362549889",
-                                                            "email": "julyant.anggara@gmail.com"
+                                                    "fullname": "Julyant Anggara",
+                                                    "phone_number": "081362549889",
+                                                    "email": "julyant.anggara@gmail.com"
                                                 },
                                                 "overall_averages": {
                                                     "average_income": 50000,

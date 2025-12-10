@@ -11,7 +11,7 @@
     "servers": [
         {
             "description": "Tugas Besar Mobile Development",
-            "url": "http://localhost:8000/api/"
+            "url": "https://api.alwinliufandy.my.id/api/"
         }
     ],
     "paths": {
